@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio</title>
+  <title>Money Game Central — Developer Studio v0.3</title>
 
   <style>
     :root {
@@ -688,6 +688,339 @@
       text-align: center;
     }
 
+
+    /* =========================================================
+       v0.3 — Dashboard Reimagined
+       North Star: every element supports the golfer's Saturday.
+       ========================================================= */
+
+    .dashboard-phone {
+      background:
+        radial-gradient(circle at 90% 2%, rgba(53, 233, 120, 0.12), transparent 28%),
+        #07130e;
+    }
+
+    .saturday-hero {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 13px;
+      padding: 20px;
+      border: 1px solid rgba(53, 233, 120, 0.18);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at top right, rgba(53, 233, 120, 0.18), transparent 40%),
+        linear-gradient(145deg, rgba(17, 49, 34, 0.98), rgba(7, 25, 17, 0.98));
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+    }
+
+    .saturday-hero::after {
+      content: "⛳";
+      position: absolute;
+      right: -8px;
+      bottom: -26px;
+      font-size: 104px;
+      opacity: 0.055;
+      transform: rotate(-10deg);
+    }
+
+    .saturday-date-row,
+    .countdown-row,
+    .dashboard-card-title,
+    .team-summary-head,
+    .submission-progress-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .saturday-kicker {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .saturday-time {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .saturday-hero h2 {
+      position: relative;
+      z-index: 1;
+      margin: 13px 0 5px;
+      font-size: 28px;
+      line-height: 1.08;
+    }
+
+    .saturday-hero p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      color: #b9d0c3;
+      font-size: 13px;
+    }
+
+    .countdown-row {
+      position: relative;
+      z-index: 1;
+      margin-top: 17px;
+      padding-top: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .countdown-copy small,
+    .countdown-value small {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 750;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .countdown-copy strong,
+    .countdown-value strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 15px;
+    }
+
+    .countdown-value {
+      text-align: right;
+    }
+
+    .dashboard-state-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: rgba(53, 233, 120, 0.11);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .dashboard-action-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 164px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .dashboard-action-card.register-state {
+      border-color: rgba(53, 233, 120, 0.3);
+      background:
+        radial-gradient(circle at top right, rgba(53, 233, 120, 0.25), transparent 42%),
+        linear-gradient(145deg, rgba(30, 111, 59, 0.82), rgba(8, 39, 23, 0.98));
+      animation: premiumPulse 2.8s ease-in-out infinite;
+    }
+
+    .dashboard-action-card.team-state {
+      background:
+        radial-gradient(circle at top right, rgba(53, 233, 120, 0.17), transparent 44%),
+        linear-gradient(145deg, #153b29, #0a2016);
+    }
+
+    .dashboard-action-card.waiting-state {
+      background:
+        radial-gradient(circle at top right, rgba(244, 200, 90, 0.14), transparent 45%),
+        linear-gradient(145deg, #243526, #101f16);
+    }
+
+    @keyframes premiumPulse {
+      0%, 100% { box-shadow: 0 0 0 rgba(53, 233, 120, 0); }
+      50% { box-shadow: 0 0 28px rgba(53, 233, 120, 0.13); }
+    }
+
+    .dashboard-main-action {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      margin-top: 15px;
+      padding: 13px 14px;
+      border: 0;
+      border-radius: 13px;
+      background: var(--green);
+      color: #03240f;
+      font-weight: 950;
+    }
+
+    .dashboard-secondary-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 13px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .weather-icon-large {
+      margin-top: 4px;
+      font-size: 31px;
+      animation: weatherFloat 3.2s ease-in-out infinite;
+    }
+
+    @keyframes weatherFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    .weather-detail {
+      margin-top: 7px;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .dashboard-section-label {
+      margin: 18px 2px 9px;
+      color: #6f8d7e;
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .team-mini-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .team-mini-player {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: #dcebe2;
+      font-size: 12px;
+    }
+
+    .team-mini-avatar {
+      display: grid;
+      place-items: center;
+      width: 27px;
+      height: 27px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--green);
+      font-size: 10px;
+      font-weight: 900;
+    }
+
+    .hole-progress-wrap {
+      margin-top: 15px;
+    }
+
+    .hole-progress-track,
+    .submission-progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .hole-progress-fill,
+    .submission-progress-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--green-dark), var(--green));
+      transition: width 0.35s ease;
+    }
+
+    .hole-progress-copy {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .submission-progress-head {
+      margin-bottom: 9px;
+      font-size: 12px;
+    }
+
+    .submitted-team-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 13px;
+    }
+
+    .submitted-team {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 11px;
+      border-radius: 11px;
+      background: rgba(255, 255, 255, 0.035);
+      color: #d9e9df;
+      font-size: 12px;
+    }
+
+    .submitted-team span:last-child {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .official-dashboard-card {
+      border-color: rgba(244, 200, 90, 0.23);
+      background:
+        radial-gradient(circle at top right, rgba(244, 200, 90, 0.2), transparent 45%),
+        linear-gradient(145deg, #243821, #101e16);
+      box-shadow: 0 18px 44px rgba(244, 200, 90, 0.06);
+    }
+
+    .winner-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .winner-mini {
+      padding: 10px 5px;
+      border: 1px solid rgba(244, 200, 90, 0.13);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.035);
+      text-align: center;
+    }
+
+    .winner-mini small {
+      display: block;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    .winner-mini strong {
+      display: block;
+      margin-top: 4px;
+      color: var(--gold);
+      font-size: 12px;
+    }
+
+    .dashboard-fade-in {
+      animation: dashboardFade 0.35s ease;
+    }
+
+    @keyframes dashboardFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     @media (max-width: 950px) {
       .app-shell {
         grid-template-columns: 1fr;
@@ -732,7 +1065,7 @@
 
         <h1>Money Game Central</h1>
 
-        <p>Design • Build • Test • Ship</p>
+        <p>v0.3 • Dashboard Reimagined</p>
       </div>
 
       <div class="nav-section">
@@ -1100,13 +1433,13 @@
             <div class="progress-row">
               <div class="progress-header">
                 <span>Dashboard</span>
-                <span>85%</span>
+                <span>100%</span>
               </div>
 
               <div class="progress-track">
                 <div
                   class="progress-fill"
-                  style="width: 85%"
+                  style="width: 100%"
                 ></div>
               </div>
             </div>
@@ -1169,12 +1502,12 @@
 
               <div class="system-item">
                 <span>Working On</span>
-                <span>Dashboard</span>
+                <span>Dashboard v0.3</span>
               </div>
 
               <div class="system-item">
                 <span>Next Screen</span>
-                <span>Team Detail</span>
+                <span>Design System</span>
               </div>
             </div>
 
@@ -1182,7 +1515,7 @@
               class="full-app-button"
               data-screen="dashboard"
             >
-              Continue Dashboard Design
+              Review Dashboard v0.3
             </button>
           </div>
         </div>
@@ -1193,93 +1526,83 @@
         class="screen"
       >
         <div class="phone-wrap">
-          <div class="phone">
+          <div class="phone dashboard-phone">
             <div class="phone-notch"></div>
 
             <div class="app-header">
               <div>
-                <small>Good morning, Gabe</small>
+                <small id="dashboard-header-small">Saturday League</small>
                 <h1>Money Game Central</h1>
               </div>
 
-              <button class="menu-button">
+              <button class="menu-button" aria-label="Open menu">
                 ☰
               </button>
             </div>
 
-            <div class="phone-content">
-              <div class="dashboard-top-grid">
-                <div class="app-card register-card">
-                  <div>
-                    <div class="eyebrow">
-                      Saturday League
-                    </div>
-
-                    <h3>My Team</h3>
-
-                    <p>
-                      Team 4 is ready.
-                    </p>
-                  </div>
-
-                  <div class="app-action">
-                    Open Team →
-                  </div>
+            <div class="phone-content dashboard-fade-in" id="dashboard-content">
+              <div class="saturday-hero">
+                <div class="saturday-date-row">
+                  <span class="saturday-kicker" id="dashboard-day-label">Saturday • July 25</span>
+                  <span class="saturday-time" id="dashboard-current-time">8:12 AM</span>
                 </div>
 
-                <div class="app-card weather-card">
-                  <div>🌤️</div>
+                <h2 id="dashboard-greeting">Welcome back, Gabe.</h2>
 
-                  <div class="weather-temp">
-                    76°
+                <p id="dashboard-hero-copy">Ready for today's Money Game?</p>
+
+                <div class="countdown-row" id="dashboard-countdown-row">
+                  <div class="countdown-copy">
+                    <small id="dashboard-countdown-label">Registration closes in</small>
+                    <strong id="dashboard-countdown-value">1h 18m</strong>
                   </div>
 
-                  <p>
-                    Light wind
-                  </p>
-
-                  <small class="gold">
-                    7 mph SW
-                  </small>
+                  <div class="countdown-value">
+                    <small>First tee</small>
+                    <strong>10:00 AM</strong>
+                  </div>
                 </div>
               </div>
 
+              <div class="dashboard-top-grid">
+                <div
+                  class="app-card dashboard-action-card register-state"
+                  id="dashboard-primary-card"
+                >
+                  <div id="dashboard-primary-content"></div>
+                </div>
+
+                <div class="app-card weather-card">
+                  <div class="weather-icon-large">🌤️</div>
+                  <div class="weather-temp">76°</div>
+                  <p>Light wind</p>
+                  <div class="weather-detail">7 mph SW</div>
+                </div>
+              </div>
+
+              <div id="dashboard-progressive-area"></div>
+
+              <div class="dashboard-section-label">League Update</div>
+
               <div class="app-card announcement-card">
-                <h3>📢 Announcements</h3>
+                <div class="dashboard-card-title">
+                  <h3>📢 Announcements</h3>
+                  <span class="dashboard-state-chip">NEW</span>
+                </div>
 
                 <p>
-                  Teams lock at 9:30 AM. First group begins on
-                  Hole 1.
+                  Teams lock at 9:30 AM. First group begins on Hole 1.
                 </p>
 
-                <div class="app-action">
+                <div class="dashboard-secondary-link">
                   View announcement →
                 </div>
               </div>
 
-              <div class="app-card money-card">
-                <div class="money-title">
-                  <div>
-                    <div class="eyebrow">
-                      Live Today
-                    </div>
+              <div class="dashboard-section-label">Today's Game</div>
 
-                    <h3>🏆 Money Game</h3>
-                  </div>
-
-                  <span class="live-badge">
-                    ACTIVE
-                  </span>
-                </div>
-
-                <p>
-                  Team results stay private until official totals
-                  are submitted.
-                </p>
-
-                <div class="app-action">
-                  Open Money Game →
-                </div>
+              <div class="app-card money-card" id="dashboard-money-card">
+                <div id="dashboard-money-content"></div>
               </div>
             </div>
           </div>
@@ -1807,6 +2130,264 @@
           button.textContent = "🎲 Generate Demo Saturday";
         }, 2200);
       });
+
+    const dashboardStates = {
+      "Registration Open": {
+        headerSmall: "Registration Open",
+        heroCopy: "Ready for today's Money Game?",
+        countdownLabel: "Registration closes in",
+        countdownValue: "1h 18m",
+        primaryClass: "register-state",
+        primary: `
+          <div>
+            <span class="dashboard-state-chip">Action Needed</span>
+            <h3>Register for Saturday</h3>
+            <p>Join today's league before registration closes.</p>
+          </div>
+          <button class="dashboard-main-action">Register Now</button>
+        `,
+        progressive: "",
+        money: `
+          <div class="money-title">
+            <div>
+              <div class="eyebrow">Today's Format</div>
+              <h3>🏆 Money Game</h3>
+            </div>
+            <span class="live-badge">PREVIEW</span>
+          </div>
+          <p>Front, Back and Total. Best three team scores count.</p>
+          <div class="dashboard-secondary-link">View game details →</div>
+        `
+      },
+
+      "Teams Created": {
+        headerSmall: "Teams Are Ready",
+        heroCopy: "Your team is set. Saturday starts here.",
+        countdownLabel: "First tee begins in",
+        countdownValue: "28m",
+        primaryClass: "team-state",
+        primary: `
+          <div>
+            <span class="dashboard-state-chip">Team 4</span>
+            <div class="team-summary-head">
+              <div>
+                <h3>My Team</h3>
+                <p>Ryan is your captain.</p>
+              </div>
+              <strong class="gold">Ready</strong>
+            </div>
+            <div class="team-mini-list">
+              <div class="team-mini-player"><span class="team-mini-avatar">R</span>Ryan • Captain</div>
+              <div class="team-mini-player"><span class="team-mini-avatar">M</span>Mike</div>
+              <div class="team-mini-player"><span class="team-mini-avatar">J</span>John</div>
+              <div class="team-mini-player"><span class="team-mini-avatar">D</span>Dave</div>
+            </div>
+          </div>
+          <button class="dashboard-main-action" data-screen="my-team">Open My Team</button>
+        `,
+        progressive: `
+          <div class="app-card">
+            <div class="dashboard-card-title">
+              <div>
+                <h3>Today's Pairings</h3>
+                <p>Four teams are ready.</p>
+              </div>
+              <span class="dashboard-state-chip">LOCKED</span>
+            </div>
+            <div class="dashboard-secondary-link">View all teams →</div>
+          </div>
+        `,
+        money: `
+          <div class="money-title">
+            <div>
+              <div class="eyebrow">Ready to Play</div>
+              <h3>🏆 Money Game</h3>
+            </div>
+            <span class="live-badge">READY</span>
+          </div>
+          <p>Results stay private until each team submits its official totals.</p>
+          <div class="dashboard-secondary-link">Open Money Game →</div>
+        `
+      },
+
+      "Hole 8": {
+        headerSmall: "Round In Progress",
+        heroCopy: "Your team is moving through the front nine.",
+        countdownLabel: "Current position",
+        countdownValue: "Hole 8 of 18",
+        primaryClass: "team-state",
+        primary: `
+          <div>
+            <span class="dashboard-state-chip">Playing Now</span>
+            <div class="team-summary-head">
+              <div>
+                <h3>My Team</h3>
+                <p>Team 4 • Ryan's group</p>
+              </div>
+              <strong class="gold">Hole 8</strong>
+            </div>
+            <div class="hole-progress-wrap">
+              <div class="hole-progress-copy"><span>Round progress</span><span>8 / 18</span></div>
+              <div class="hole-progress-track"><div class="hole-progress-fill" style="width:44%"></div></div>
+            </div>
+          </div>
+          <button class="dashboard-main-action" data-screen="live-scorecard">Open Scorecard</button>
+        `,
+        progressive: `
+          <div class="app-card">
+            <div class="dashboard-card-title">
+              <div>
+                <h3>Team Status</h3>
+                <p>Hole 7 saved. Hole 8 is waiting for scores.</p>
+              </div>
+              <span class="dashboard-state-chip">LIVE</span>
+            </div>
+          </div>
+        `,
+        money: `
+          <div class="money-title">
+            <div>
+              <div class="eyebrow">Live Today</div>
+              <h3>🏆 Money Game</h3>
+            </div>
+            <span class="live-badge">PRIVATE</span>
+          </div>
+          <p>Your scorecard is visible. Other teams remain hidden until submission.</p>
+          <div class="dashboard-secondary-link">Open private game view →</div>
+        `
+      },
+
+      "Final Hole": {
+        headerSmall: "Team Submitted",
+        heroCopy: "Your official score is in. Results unlock as teams finish.",
+        countdownLabel: "Teams submitted",
+        countdownValue: "2 of 4",
+        primaryClass: "waiting-state",
+        primary: `
+          <div>
+            <span class="dashboard-state-chip">Score Submitted</span>
+            <h3>Waiting for Other Teams</h3>
+            <p>Your team is finished. Submitted teams are now visible.</p>
+            <div class="submission-progress-head"><span>Official submissions</span><strong>50%</strong></div>
+            <div class="submission-progress-track"><div class="submission-progress-fill" style="width:50%"></div></div>
+          </div>
+          <div class="dashboard-secondary-link">View submitted results →</div>
+        `,
+        progressive: `
+          <div class="app-card">
+            <h3>Submitted Teams</h3>
+            <div class="submitted-team-list">
+              <div class="submitted-team"><span>Team 1</span><span>Official</span></div>
+              <div class="submitted-team"><span>Team 4 • Your Team</span><span>Official</span></div>
+              <div class="submitted-team"><span>Team 2</span><span style="color:var(--muted)">Waiting</span></div>
+              <div class="submitted-team"><span>Team 3</span><span style="color:var(--muted)">Waiting</span></div>
+            </div>
+          </div>
+        `,
+        money: `
+          <div class="money-title">
+            <div>
+              <div class="eyebrow">Progressive Reveal</div>
+              <h3>🏆 Money Game</h3>
+            </div>
+            <span class="live-badge">2 / 4</span>
+          </div>
+          <p>Only official submissions are shown while the remaining teams finish.</p>
+          <div class="dashboard-secondary-link">View submitted teams →</div>
+        `
+      },
+
+      "Official Recap": {
+        headerSmall: "Round Complete",
+        heroCopy: "The official Saturday results are ready.",
+        countdownLabel: "Round status",
+        countdownValue: "Official",
+        primaryClass: "official-dashboard-card",
+        primary: `
+          <div>
+            <span class="dashboard-state-chip">🏆 Official</span>
+            <h3>Team 2 Wins Saturday</h3>
+            <p>Front, Back and Total results have been finalized.</p>
+            <div class="winner-strip">
+              <div class="winner-mini"><small>Front</small><strong>Team 2</strong></div>
+              <div class="winner-mini"><small>Back</small><strong>Team 3</strong></div>
+              <div class="winner-mini"><small>Total</small><strong>Team 2</strong></div>
+            </div>
+          </div>
+          <button class="dashboard-main-action" data-screen="official-recap">Open Official Recap</button>
+        `,
+        progressive: "",
+        money: `
+          <div class="money-title">
+            <div>
+              <div class="eyebrow">Saturday Complete</div>
+              <h3>📋 Official Recap</h3>
+            </div>
+            <span class="live-badge">FINAL</span>
+          </div>
+          <p>Review standings, winners, payouts and every player's round scorecard.</p>
+          <div class="dashboard-secondary-link" data-screen="official-recap">View full recap →</div>
+        `
+      }
+    };
+
+    function refreshDashboardClock() {
+      const now = new Date();
+      const time = now.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit"
+      });
+      const date = now.toLocaleDateString([], {
+        weekday: "long",
+        month: "long",
+        day: "numeric"
+      });
+
+      document.getElementById("dashboard-current-time").textContent = time;
+      document.getElementById("dashboard-day-label").textContent = date;
+    }
+
+    function renderDashboardState(stateName) {
+      const state = dashboardStates[stateName] || dashboardStates["Hole 8"];
+      const primaryCard = document.getElementById("dashboard-primary-card");
+      const content = document.getElementById("dashboard-content");
+
+      document.getElementById("dashboard-header-small").textContent = state.headerSmall;
+      document.getElementById("dashboard-hero-copy").textContent = state.heroCopy;
+      document.getElementById("dashboard-countdown-label").textContent = state.countdownLabel;
+      document.getElementById("dashboard-countdown-value").textContent = state.countdownValue;
+
+      primaryCard.className = `app-card dashboard-action-card ${state.primaryClass}`;
+      document.getElementById("dashboard-primary-content").innerHTML = state.primary;
+      document.getElementById("dashboard-progressive-area").innerHTML = state.progressive;
+      document.getElementById("dashboard-money-content").innerHTML = state.money;
+
+      document.getElementById("dashboard-money-card").classList.toggle(
+        "official-dashboard-card",
+        stateName === "Official Recap"
+      );
+
+      content.classList.remove("dashboard-fade-in");
+      void content.offsetWidth;
+      content.classList.add("dashboard-fade-in");
+
+      document
+        .querySelectorAll("#dashboard [data-screen]")
+        .forEach((button) => {
+          button.addEventListener("click", () => openScreen(button.dataset.screen));
+        });
+    }
+
+    const scenarioSelect = document.getElementById("scenario-select");
+
+    scenarioSelect.addEventListener("change", () => {
+      renderDashboardState(scenarioSelect.value);
+      openScreen("dashboard");
+    });
+
+    refreshDashboardClock();
+    setInterval(refreshDashboardClock, 30000);
+    renderDashboardState(scenarioSelect.value);
 
     document
       .getElementById("save-hole-button")
