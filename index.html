@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v0.4 WOW Dashboard</title>
+  <title>Money Game Central — Developer Studio v0.5 Clean Dashboard</title>
 
   <style>
     :root {
@@ -1313,6 +1313,73 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* =========================================================
+       v0.5 — CLEAN DASHBOARD
+       Less chrome, fewer competing blocks, first-screen clarity.
+       ========================================================= */
+    .wow-phone { background:#07120e; }
+    .wow-content { padding:0 16px 20px; }
+    .wow-hero {
+      min-height:0; margin:0 -16px 10px; padding:20px 18px 16px;
+      border-bottom:1px solid rgba(255,255,255,.06);
+      background:linear-gradient(180deg,rgba(21,57,38,.72),rgba(7,18,14,.98));
+    }
+    .wow-hero::before,.wow-hero::after{display:none}
+    .wow-topline{font-size:10px;color:#9bb3a5}
+    .wow-hero h2{margin:14px 0 4px;font-size:24px}
+    .wow-hero p{margin:0;color:#9db4a7;font-size:12px}
+    .wow-course{margin-top:6px;font-size:11px}
+    .wow-countdown{margin-top:14px;padding-top:12px}
+    .wow-countdown strong{font-size:15px}
+    .wow-countdown small{font-size:8px}
+
+    .pulse-ribbon{margin-bottom:9px;padding:10px 12px;border-radius:12px;box-shadow:none}
+    .pulse-ribbon::after{display:none}
+    .pulse-ribbon-label{font-size:8px}
+    .pulse-ribbon-message{font-size:11px}
+
+    .bulletin{margin-bottom:10px;padding:15px 16px;border-radius:15px;box-shadow:none;background:#0d2118}
+    .bulletin::after{display:none}
+    .bulletin-kicker{font-size:8px}
+    .bulletin h3{margin:7px 0 5px;font-size:17px}
+    .bulletin-lead{font-size:12px!important;line-height:1.4!important}
+    .bulletin-list{gap:4px;margin-top:10px}
+    .bulletin-item{padding-top:5px;font-size:10.5px}
+    .bulletin-action{margin-top:10px;font-size:10px}
+
+    #dashboard-journey-wrap{display:none}
+    .wow-grid{grid-template-columns:1fr 138px;gap:9px}
+    .team-roster-card,.living-weather{min-height:138px;padding:14px;border-radius:15px;box-shadow:none}
+    .team-roster-card{background:#0e251a}
+    .living-weather{background:#10251c}
+    .living-weather .weather-sun{font-size:24px}
+    .living-weather .weather-temp{font-size:27px}
+    .living-weather p{font-size:10px!important}
+    .living-weather small{display:none!important}
+    .wind-arrow{font-size:9px}
+    .avatar-stack{margin-top:10px}
+    .roster-avatar{width:31px;height:31px;font-size:9px}
+    .roster-copy{margin-top:9px!important;font-size:10px!important}
+    .team-badge{font-size:7px;padding:4px 6px}
+    .dashboard-main-action{margin-top:10px;padding:9px 11px;font-size:10px}
+
+    .dashboard-section-label{margin:14px 2px 7px;font-size:9px}
+    .premium-money{min-height:128px;padding:15px;border-radius:16px;box-shadow:none;background:linear-gradient(145deg,#1e3020,#0c1d15)}
+    .premium-money::after{display:none}
+    .money-crown{font-size:24px}
+    .premium-money h3{font-size:17px!important}
+    .premium-money p{font-size:10.5px!important}
+    .money-stats{margin-top:10px}
+    .money-stat{padding:7px 4px}
+    .money-stat strong{font-size:10px}
+    .dashboard-secondary-link{margin-top:9px;font-size:10px}
+
+    @media (max-width:420px){
+      .wow-grid{grid-template-columns:1fr 126px}
+      .wow-hero h2{font-size:22px}
+    }
+
   </style>
 </head>
 
@@ -1324,7 +1391,7 @@
 
         <h1>Money Game Central</h1>
 
-        <p>v0.4 • WOW Dashboard</p>
+        <p>v0.5 • Clean Dashboard</p>
       </div>
 
       <div class="nav-section">
@@ -1761,7 +1828,7 @@
 
               <div class="system-item">
                 <span>Working On</span>
-                <span>Dashboard v0.4</span>
+                <span>Dashboard v0.5</span>
               </div>
 
               <div class="system-item">
@@ -1774,7 +1841,7 @@
               class="full-app-button"
               data-screen="dashboard"
             >
-              Review Dashboard v0.4
+              Review Dashboard v0.5
             </button>
           </div>
         </div>
