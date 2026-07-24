@@ -739,6 +739,13 @@
         <div class="nav-label">Studio</div>
 
         <button
+          class="nav-button"
+          data-screen="north-star"
+        >
+          ⭐ North Star
+        </button>
+
+        <button
           class="nav-button active"
           data-screen="developer-home"
         >
@@ -822,6 +829,93 @@
           </button>
         </div>
       </header>
+
+      <section
+        id="north-star"
+        class="screen"
+      >
+        <div class="studio-grid">
+          <div class="studio-card mission-card" style="grid-column: 1 / -1;">
+            <div class="eyebrow">
+              Money Game Central Design Philosophy
+            </div>
+
+            <h2>
+              ⭐ The <strong>North Star</strong>
+            </h2>
+
+            <p style="max-width: 760px; font-size: 16px; color: var(--text);">
+              Every design decision must improve the golfer's Saturday experience.
+            </p>
+
+            <div class="mission-actions">
+              <button
+                class="primary-button"
+                data-screen="dashboard"
+              >
+                Open Dashboard Preview
+              </button>
+
+              <button
+                class="secondary-button"
+                data-screen="developer-home"
+              >
+                Return to Developer Home
+              </button>
+            </div>
+          </div>
+
+          <div class="studio-card">
+            <h3>1. Today Comes First</h3>
+            <p>The Dashboard focuses only on today's league experience. Season statistics, history and awards belong in their own areas.</p>
+          </div>
+
+          <div class="studio-card">
+            <h3>2. One-Tap Experience</h3>
+            <p>The most important Saturday actions should always be one tap away.</p>
+          </div>
+
+          <div class="studio-card">
+            <h3>3. Progressive Reveal</h3>
+            <p>Information unlocks naturally as Saturday moves through registration, teams, live play, submitted results and the official recap.</p>
+          </div>
+
+          <div class="studio-card">
+            <h3>4. Golfer First</h3>
+            <p>Every player should immediately understand where they are, what they can do and what happens next.</p>
+          </div>
+
+          <div class="studio-card">
+            <h3>5. History Lives Forever</h3>
+            <p>Every completed round becomes part of the player's permanent profile, scorecard archive and league history.</p>
+          </div>
+
+          <div class="studio-card">
+            <h3>6. Simplicity Wins</h3>
+            <p>Powerful features should never make the app feel crowded, confusing or difficult to use.</p>
+          </div>
+
+          <div class="studio-card">
+            <h3>7. Build Once. Build Right.</h3>
+            <p>Screens are perfected inside Developer Studio, approved, frozen and then moved into production.</p>
+          </div>
+
+          <div class="studio-card">
+            <h3>North Star Check</h3>
+            <div class="system-list">
+              <div class="system-item"><span>Does it improve the golfer's Saturday experience?</span><span>Required</span></div>
+              <div class="system-item"><span>Does it belong on this screen?</span><span>Required</span></div>
+              <div class="system-item"><span>Does it make the app simpler?</span><span>Required</span></div>
+            </div>
+          </div>
+
+          <div class="studio-card" style="grid-column: 1 / -1; text-align: center;">
+            <div class="eyebrow">Final Rule</div>
+            <h2 style="margin: 12px 0 7px; font-size: 30px;">When in doubt, follow The North Star.</h2>
+            <p>This philosophy guides every screen, feature and design decision inside Money Game Central.</p>
+          </div>
+        </div>
+      </section>
 
       <section
         id="developer-home"
@@ -1505,6 +1599,11 @@
 
   <script>
     const screenTitles = {
+      "north-star": {
+        title: "The North Star",
+        subtitle: "Money Game Central design philosophy"
+      },
+
       "developer-home": {
         title: "Developer Studio",
         subtitle: "Safe UI development environment"
