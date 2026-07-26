@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v0.6 Broadcast Classic Dashboard</title>
+  <title>Money Game Central — Developer Studio v0.7 Broadcast Classic Dashboard</title>
 
   <style>
     :root {
@@ -1382,7 +1382,7 @@
 
 
     /* =========================================================
-       v0.6 — BROADCAST CLASSIC DASHBOARD
+       v0.7 — BROADCAST CLASSIC DASHBOARD
        A + D: sports-broadcast hierarchy with the familiar
        dashboard structure. Bold where it matters, simple elsewhere.
        ========================================================= */
@@ -1462,6 +1462,245 @@
     @media(max-width:420px){
       .wow-grid{grid-template-columns:1fr 112px}
       .wow-hero h2{font-size:23px}
+    }
+
+
+
+    /* v0.7 — My Team Broadcast Scoreboard */
+    .team-broadcast-hero {
+      position: relative;
+      overflow: hidden;
+      padding: 20px;
+      border: 1px solid rgba(72, 214, 126, 0.28);
+      background:
+        linear-gradient(135deg, rgba(28, 126, 69, 0.30), rgba(7, 20, 13, 0.92) 62%),
+        radial-gradient(circle at 90% 10%, rgba(76, 222, 129, 0.16), transparent 34%);
+    }
+    .team-broadcast-hero::after {
+      content: "TEAM 4";
+      position: absolute;
+      right: -8px;
+      bottom: -17px;
+      font-size: 58px;
+      font-weight: 950;
+      letter-spacing: -4px;
+      color: rgba(255,255,255,0.035);
+      pointer-events: none;
+    }
+    .team-broadcast-topline,
+    .scoreboard-title-row,
+    .round-status-row,
+    .money-line,
+    .roster-player,
+    .standings-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .team-kicker {
+      font-size: 11px;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+      color: var(--green-light);
+      font-weight: 900;
+    }
+    .team-number {
+      margin: 7px 0 2px;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: -1.4px;
+    }
+    .captain-line {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .position-medal {
+      min-width: 88px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      text-align: center;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .position-medal span {
+      display: block;
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 800;
+    }
+    .position-medal strong {
+      display: block;
+      margin-top: 4px;
+      color: #ffe08a;
+      font-size: 18px;
+    }
+    .broadcast-scoreboard {
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+    .scoreboard-title-row {
+      padding: 14px 17px;
+      background: rgba(255,255,255,0.035);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .scoreboard-title-row h3 { margin: 0; font-size: 15px; }
+    .scoreboard-title-row span {
+      color: var(--green-light);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      text-align: center;
+    }
+    .score-cell {
+      padding: 18px 5px 16px;
+      border-right: 1px solid rgba(255,255,255,0.07);
+    }
+    .score-cell:last-child { border-right: 0; }
+    .score-cell small {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+    .score-cell strong {
+      font-size: 25px;
+      letter-spacing: -1px;
+    }
+    .score-cell.total strong { color: #ffe08a; }
+    .privacy-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(0,0,0,.18);
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .privacy-note strong { color: var(--green-light); }
+    .live-standings-card { padding: 0; overflow: hidden; }
+    .standings-head {
+      padding: 14px 17px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .standings-head h3 { margin: 0; font-size: 15px; }
+    .standings-head p { margin: 4px 0 0; font-size: 11px; }
+    .standings-line {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.055);
+      font-size: 13px;
+    }
+    .standings-line:last-child { border-bottom: 0; }
+    .standings-line.my-team-row {
+      background: linear-gradient(90deg, rgba(43, 192, 100, .14), rgba(43, 192, 100, .025));
+      box-shadow: inset 3px 0 0 var(--green-light);
+    }
+    .standings-team { display: flex; align-items: center; gap: 9px; }
+    .place-icon { width: 24px; text-align: center; font-size: 17px; }
+    .standings-score { font-size: 16px; }
+    .my-team-tag {
+      padding: 3px 6px;
+      border-radius: 999px;
+      background: rgba(66, 213, 122, .15);
+      color: var(--green-light);
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: .8px;
+    }
+    .roster-card { padding: 0; overflow: hidden; }
+    .roster-card h3 { padding: 14px 17px 12px; margin: 0; font-size: 15px; }
+    .roster-player {
+      padding: 12px 16px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+    .player-identity { display: flex; align-items: center; gap: 11px; }
+    .player-initial {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .player-initial.captain-initial {
+      background: rgba(51, 199, 108, .15);
+      border-color: rgba(71, 222, 130, .35);
+      color: var(--green-light);
+    }
+    .player-name { font-weight: 850; font-size: 13px; }
+    .captain-badge {
+      display: inline-block;
+      margin-top: 3px;
+      color: var(--green-light);
+      font-size: 9px;
+      font-weight: 900;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+    }
+    .player-status { color: var(--muted); font-size: 11px; }
+    .round-status-card { padding: 15px 17px; }
+    .round-status-row strong { font-size: 13px; }
+    .round-status-row span { color: var(--muted); font-size: 11px; }
+    .submitted-pill {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: rgba(55, 202, 112, .13);
+      color: var(--green-light) !important;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .7px;
+      font-size: 9px !important;
+    }
+    .money-snapshot {
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(235, 188, 74, .24);
+      background: linear-gradient(145deg, rgba(82, 58, 11, .25), rgba(15, 17, 15, .95));
+    }
+    .money-snapshot-head {
+      padding: 14px 17px;
+      border-bottom: 1px solid rgba(255,255,255,.075);
+    }
+    .money-snapshot-head h3 { margin: 0; color: #ffe08a; font-size: 15px; }
+    .money-lines { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .money-line {
+      display: block;
+      padding: 14px 8px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.07);
+    }
+    .money-line:last-child { border-right: 0; }
+    .money-line span { display: block; color: var(--muted); font-size: 10px; text-transform: uppercase; font-weight: 850; }
+    .money-line strong { display: block; margin-top: 6px; font-size: 17px; color: #ffe08a; }
+    .team-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .team-actions .full-app-button { margin: 0; }
+    .team-actions .secondary-team-action {
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.09);
+      color: var(--text);
+    }
+    @media (max-width: 470px) {
+      .score-cell strong { font-size: 22px; }
+      .team-number { font-size: 30px; }
     }
 
   </style>
@@ -1912,7 +2151,7 @@
 
               <div class="system-item">
                 <span>Working On</span>
-                <span>Dashboard v0.6</span>
+                <span>Dashboard v0.7</span>
               </div>
 
               <div class="system-item">
@@ -1925,7 +2164,7 @@
               class="full-app-button"
               data-screen="dashboard"
             >
-              Review Dashboard v0.6
+              Review Dashboard v0.7
             </button>
           </div>
         </div>
@@ -1977,71 +2216,104 @@
 
             <div class="app-header">
               <div>
-                <small>Private Team Clubhouse</small>
+                <small>Saturday Team Center</small>
                 <h1>My Team</h1>
               </div>
 
-              <button class="menu-button">
-                ☰
-              </button>
+              <button class="menu-button" aria-label="Open menu">☰</button>
             </div>
 
             <div class="phone-content">
-              <div class="app-card">
-                <div class="eyebrow">
-                  Team 4
-                </div>
-
-                <h3 style="font-size: 25px; margin-top: 8px;">
-                  The Saturday Crew
-                </h3>
-
-                <p>
-                  Currently playing Hole 8
-                </p>
-              </div>
-
-              <div class="app-card">
-                <h3>Team Members</h3>
-
-                <div class="team-player">
-                  <span>Ryan</span>
-
-                  <span class="captain">
-                    Captain / Scorekeeper
-                  </span>
-                </div>
-
-                <div class="team-player">
-                  <span>Mike</span>
-                  <span>Playing</span>
-                </div>
-
-                <div class="team-player">
-                  <span>John</span>
-                  <span>Playing</span>
-                </div>
-
-                <div class="team-player">
-                  <span>Dave</span>
-                  <span>Playing</span>
+              <div class="app-card team-broadcast-hero">
+                <div class="team-broadcast-topline">
+                  <div>
+                    <div class="team-kicker">Cliffside Money Game</div>
+                    <h2 class="team-number">Team 4</h2>
+                    <div class="captain-line">Captain: Ryan</div>
+                  </div>
+                  <div class="position-medal">
+                    <span>Position</span>
+                    <strong>🥈 2nd</strong>
+                  </div>
                 </div>
               </div>
 
-              <div class="app-card">
-                <h3>Team Status</h3>
-
-                <p>
-                  Hole 7 saved. Waiting for Hole 8 scores.
-                </p>
+              <div class="app-card broadcast-scoreboard">
+                <div class="scoreboard-title-row">
+                  <h3>Today's Team Score</h3>
+                  <span>Best 3</span>
+                </div>
+                <div class="score-grid">
+                  <div class="score-cell"><small>Front</small><strong>104</strong></div>
+                  <div class="score-cell"><small>Back</small><strong>101</strong></div>
+                  <div class="score-cell total"><small>Total</small><strong>205</strong></div>
+                  <div class="score-cell"><small>Best 3</small><strong>205</strong></div>
+                </div>
+                <div class="privacy-note">🔒 <span><strong>Results unlocked.</strong> Your team has submitted its round.</span></div>
               </div>
 
-              <button
-                class="full-app-button"
-                data-screen="live-scorecard"
-              >
-                Open Team Scorecard
-              </button>
+              <div class="app-card live-standings-card">
+                <div class="standings-head">
+                  <h3>🏆 Team Standings</h3>
+                  <p>Visible only after your team submits.</p>
+                </div>
+                <div class="standings-line">
+                  <div class="standings-team"><span class="place-icon">🥇</span><strong>Team 2</strong></div>
+                  <strong class="standings-score">209</strong>
+                </div>
+                <div class="standings-line my-team-row">
+                  <div class="standings-team"><span class="place-icon">🥈</span><strong>Team 4</strong><span class="my-team-tag">YOUR TEAM</span></div>
+                  <strong class="standings-score">205</strong>
+                </div>
+                <div class="standings-line">
+                  <div class="standings-team"><span class="place-icon">🥉</span><strong>Team 1</strong></div>
+                  <strong class="standings-score">203</strong>
+                </div>
+                <div class="standings-line">
+                  <div class="standings-team"><span class="place-icon">💩</span><strong>Team 3</strong></div>
+                  <strong class="standings-score">198</strong>
+                </div>
+              </div>
+
+              <div class="team-actions">
+                <button class="full-app-button" data-screen="live-scorecard">📋 View Scorecard</button>
+                <button class="full-app-button secondary-team-action" data-screen="dashboard">← Dashboard</button>
+              </div>
+
+              <div class="app-card roster-card">
+                <h3>👥 Team Roster</h3>
+                <div class="roster-player">
+                  <div class="player-identity"><span class="player-initial captain-initial">R</span><div><div class="player-name">Ryan</div><span class="captain-badge">Captain · Scorekeeper</span></div></div>
+                  <span class="player-status">Submitted</span>
+                </div>
+                <div class="roster-player">
+                  <div class="player-identity"><span class="player-initial">M</span><div class="player-name">Mike</div></div>
+                  <span class="player-status">Finished</span>
+                </div>
+                <div class="roster-player">
+                  <div class="player-identity"><span class="player-initial">J</span><div class="player-name">John</div></div>
+                  <span class="player-status">Finished</span>
+                </div>
+                <div class="roster-player">
+                  <div class="player-identity"><span class="player-initial">D</span><div class="player-name">Dave</div></div>
+                  <span class="player-status">Finished</span>
+                </div>
+              </div>
+
+              <div class="app-card round-status-card">
+                <div class="round-status-row"><strong>Round Status</strong><span class="submitted-pill">✓ Submitted</span></div>
+                <div class="round-status-row" style="margin-top:10px"><span>Last updated</span><strong>12:42 PM</strong></div>
+                <div class="round-status-row" style="margin-top:7px"><span>League status</span><strong>Waiting for 2 teams</strong></div>
+              </div>
+
+              <div class="app-card money-snapshot">
+                <div class="money-snapshot-head"><h3>💰 Money Game Snapshot</h3></div>
+                <div class="money-lines">
+                  <div class="money-line"><span>Front</span><strong>+$6</strong></div>
+                  <div class="money-line"><span>Back</span><strong>Push</strong></div>
+                  <div class="money-line"><span>Total</span><strong>+$12</strong></div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2297,7 +2569,7 @@
 
       "my-team": {
         title: "My Team Preview",
-        subtitle: "Private team clubhouse"
+        subtitle: "Broadcast scoreboard for your team"
       },
 
       "live-scorecard": {
