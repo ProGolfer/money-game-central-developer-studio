@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v0.7 Broadcast Classic Dashboard</title>
+  <title>Money Game Central — Developer Studio v0.8 Official Recap</title>
 
   <style>
     :root {
@@ -1703,6 +1703,223 @@
       .team-number { font-size: 30px; }
     }
 
+
+    /* ======================================================
+       v0.8 OFFICIAL RECAP — MONEY BREAKDOWN
+       ====================================================== */
+    .recap-pot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(244, 200, 90, 0.22);
+      border-radius: 16px;
+      background: rgba(244, 200, 90, 0.08);
+    }
+
+    .recap-pot span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .recap-pot strong {
+      color: var(--gold);
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .recap-section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .recap-section-title h3 {
+      margin: 0;
+    }
+
+    .score-chip {
+      flex: 0 0 auto;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .winner-block {
+      padding: 14px 0 2px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .winner-block:first-of-type {
+      border-top: 0;
+      padding-top: 0;
+    }
+
+    .winner-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .payout-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 10px 0;
+    }
+
+    .payout-row + .payout-row {
+      border-top: 1px solid rgba(255,255,255,0.055);
+    }
+
+    .payout-player {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .payout-avatar {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: rgba(53,233,120,0.12);
+      border: 1px solid rgba(53,233,120,0.20);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .payout-player strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .payout-player small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .payout-amount {
+      color: var(--gold);
+      font-size: 18px;
+      font-weight: 950;
+      white-space: nowrap;
+    }
+
+    .push-banner {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 8px;
+      padding: 10px 12px;
+      border-radius: 13px;
+      background: rgba(244,200,90,0.09);
+      border: 1px solid rgba(244,200,90,0.18);
+      color: #ffe8a8;
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .winnings-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 12px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .winnings-total span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .winnings-total strong {
+      color: var(--gold);
+      font-size: 24px;
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 0;
+    }
+
+    .summary-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 11px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .summary-row:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .summary-row span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .summary-row strong {
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .biggest-winner {
+      text-align: center;
+      background:
+        radial-gradient(circle at top, rgba(244,200,90,0.19), transparent 58%),
+        linear-gradient(145deg, #1c2d1c, #101d16);
+      border-color: rgba(244,200,90,0.20);
+    }
+
+    .biggest-winner .winner-crown {
+      font-size: 38px;
+      margin-bottom: 5px;
+    }
+
+    .biggest-winner h3 {
+      margin: 0 0 6px;
+      color: var(--gold);
+      font-size: 21px;
+    }
+
+    .biggest-winner p {
+      margin: 0;
+      color: var(--muted);
+    }
+
   </style>
 </head>
 
@@ -1714,7 +1931,7 @@
 
         <h1>Money Game Central</h1>
 
-        <p>v0.5 • Clean Dashboard</p>
+        <p>v0.8 • Official Recap</p>
       </div>
 
       <div class="nav-section">
@@ -2151,7 +2368,7 @@
 
               <div class="system-item">
                 <span>Working On</span>
-                <span>Dashboard v0.7</span>
+                <span>Official Recap v0.8</span>
               </div>
 
               <div class="system-item">
@@ -2164,7 +2381,7 @@
               class="full-app-button"
               data-screen="dashboard"
             >
-              Review Dashboard v0.7
+              Review Official Recap v0.8
             </button>
           </div>
         </div>
@@ -2471,29 +2688,24 @@
 
             <div class="app-header">
               <div>
-                <small>Round Complete</small>
+                <small>Round Complete • Official</small>
                 <h1>Official Recap</h1>
               </div>
 
-              <button class="menu-button">
+              <button class="menu-button" aria-label="Open menu">
                 ☰
               </button>
             </div>
 
             <div class="phone-content">
               <div class="app-card recap-hero">
-                <div class="recap-trophy">
-                  🏆
-                </div>
-
+                <div class="recap-trophy">🏆</div>
                 <h2>Team 2 Wins</h2>
+                <p>Saturday Money Game • Week 7</p>
 
-                <p>
-                  Saturday Money Game
-                </p>
-
-                <div class="gold" style="margin-top: 10px;">
-                  Official Results
+                <div class="recap-pot">
+                  <span>Total Pot</span>
+                  <strong>$240</strong>
                 </div>
               </div>
 
@@ -2502,46 +2714,197 @@
 
                 <div class="standing-row">
                   <span>🥇 Team 2</span>
-                  <strong class="gold">+$48</strong>
+                  <strong class="gold">221 pts</strong>
                 </div>
 
                 <div class="standing-row">
                   <span>🥈 Team 3</span>
-                  <strong>-$16</strong>
+                  <strong>218 pts</strong>
                 </div>
 
                 <div class="standing-row">
                   <span>🥉 Team 1</span>
-                  <strong>-$16</strong>
+                  <strong>215 pts</strong>
                 </div>
 
                 <div class="standing-row">
                   <span>💩 Team 4</span>
-                  <strong>-$16</strong>
+                  <strong>209 pts</strong>
                 </div>
               </div>
 
               <div class="app-card">
-                <h3>Round Winners</h3>
-
-                <div class="standing-row">
-                  <span>Front</span>
-                  <strong>Team 2</strong>
+                <div class="recap-section-title">
+                  <h3>🏆 Front</h3>
+                  <span class="score-chip">Winning score: 112</span>
                 </div>
 
-                <div class="standing-row">
-                  <span>Back</span>
-                  <strong>Team 3</strong>
+                <div class="winner-block">
+                  <div class="winner-status">🥇 Front winner</div>
+                  <div class="payout-row">
+                    <div class="payout-player">
+                      <div class="payout-avatar">G</div>
+                      <div>
+                        <strong>Gabe</strong>
+                        <small>Team 2</small>
+                      </div>
+                    </div>
+                    <div class="payout-amount">$30</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="app-card">
+                <div class="recap-section-title">
+                  <h3>🏆 Back</h3>
+                  <span class="score-chip">Winning score: 109</span>
                 </div>
 
-                <div class="standing-row">
-                  <span>Total</span>
-                  <strong class="gold">Team 2</strong>
+                <div class="push-banner">
+                  🤝 Push — payout split evenly between tied winners
+                </div>
+
+                <div class="payout-row">
+                  <div class="payout-player">
+                    <div class="payout-avatar">G</div>
+                    <div>
+                      <strong>Gabe</strong>
+                      <small>Team 2</small>
+                    </div>
+                  </div>
+                  <div class="payout-amount">$15</div>
+                </div>
+
+                <div class="payout-row">
+                  <div class="payout-player">
+                    <div class="payout-avatar">M</div>
+                    <div>
+                      <strong>Mike</strong>
+                      <small>Team 3</small>
+                    </div>
+                  </div>
+                  <div class="payout-amount">$15</div>
+                </div>
+              </div>
+
+              <div class="app-card">
+                <div class="recap-section-title">
+                  <h3>🏆 Total</h3>
+                  <span class="score-chip">Winning score: 221</span>
+                </div>
+
+                <div class="winner-block">
+                  <div class="winner-status">🥇 Total winner</div>
+                  <div class="payout-row">
+                    <div class="payout-player">
+                      <div class="payout-avatar">G</div>
+                      <div>
+                        <strong>Gabe</strong>
+                        <small>Team 2</small>
+                      </div>
+                    </div>
+                    <div class="payout-amount">$35</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="app-card">
+                <h3>💵 Player Winnings</h3>
+
+                <div class="payout-row">
+                  <div class="payout-player">
+                    <div class="payout-avatar">1</div>
+                    <div>
+                      <strong>Gabe</strong>
+                      <small>Front • Back push • Total</small>
+                    </div>
+                  </div>
+                  <div class="payout-amount">$80</div>
+                </div>
+
+                <div class="payout-row">
+                  <div class="payout-player">
+                    <div class="payout-avatar">2</div>
+                    <div>
+                      <strong>Mike</strong>
+                      <small>Back push</small>
+                    </div>
+                  </div>
+                  <div class="payout-amount">$15</div>
+                </div>
+
+                <div class="payout-row">
+                  <div class="payout-player">
+                    <div class="payout-avatar">3</div>
+                    <div>
+                      <strong>Ryan</strong>
+                      <small>No payout today</small>
+                    </div>
+                  </div>
+                  <div class="payout-amount" style="color: var(--muted);">$0</div>
+                </div>
+
+                <div class="payout-row">
+                  <div class="payout-player">
+                    <div class="payout-avatar">4</div>
+                    <div>
+                      <strong>John</strong>
+                      <small>No payout today</small>
+                    </div>
+                  </div>
+                  <div class="payout-amount" style="color: var(--muted);">$0</div>
+                </div>
+
+                <div class="winnings-total">
+                  <span>Displayed winnings</span>
+                  <strong>$95</strong>
+                </div>
+              </div>
+
+              <div class="app-card biggest-winner">
+                <div class="winner-crown">⭐</div>
+                <h3>Today's Biggest Winner</h3>
+                <p><strong style="color: var(--text);">Gabe</strong> won <strong class="gold">$80</strong></p>
+              </div>
+
+              <div class="app-card">
+                <h3>📊 Round Summary</h3>
+
+                <div class="summary-grid">
+                  <div class="summary-row">
+                    <span>Total Pot</span>
+                    <strong class="gold">$240</strong>
+                  </div>
+
+                  <div class="summary-row">
+                    <span>Front</span>
+                    <strong>Gabe • 112 • $30</strong>
+                  </div>
+
+                  <div class="summary-row">
+                    <span>Back</span>
+                    <strong>Push • 109</strong>
+                  </div>
+
+                  <div class="summary-row">
+                    <span>Back Split</span>
+                    <strong>Gabe $15 • Mike $15</strong>
+                  </div>
+
+                  <div class="summary-row">
+                    <span>Total</span>
+                    <strong>Gabe • 221 • $35</strong>
+                  </div>
+
+                  <div class="summary-row">
+                    <span>Biggest Winner</span>
+                    <strong class="gold">Gabe • $80</strong>
+                  </div>
                 </div>
               </div>
 
               <button class="full-app-button">
-                View Team Details
+                View Complete Team Scorecards
               </button>
             </div>
           </div>
