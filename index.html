@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v0.5 Clean Dashboard</title>
+  <title>Money Game Central — Developer Studio v0.6 Broadcast Classic Dashboard</title>
 
   <style>
     :root {
@@ -1380,6 +1380,90 @@
       .wow-hero h2{font-size:22px}
     }
 
+
+    /* =========================================================
+       v0.6 — BROADCAST CLASSIC DASHBOARD
+       A + D: sports-broadcast hierarchy with the familiar
+       dashboard structure. Bold where it matters, simple elsewhere.
+       ========================================================= */
+    .wow-phone{background:#07110d}
+    .wow-content{padding:0 15px 22px}
+
+    .wow-hero{
+      margin:0 -15px 10px; padding:18px 17px 15px; border-bottom:2px solid rgba(53,233,120,.35);
+      background:linear-gradient(145deg,#153e29 0%,#0b2418 54%,#07110d 100%);
+    }
+    .wow-topline{color:#b9cec1;font-size:9px;letter-spacing:.12em}
+    .wow-hero h2{margin:11px 0 3px;font-size:25px;line-height:1}
+    .wow-hero p{display:none}
+    .wow-course{margin-top:7px;color:#eaf7ef;font-size:10px;font-weight:800}
+    .wow-countdown{margin-top:13px;padding-top:11px;border-top:1px solid rgba(255,255,255,.1)}
+    .wow-countdown>div{display:flex;align-items:baseline;gap:7px}
+    .wow-countdown .tee{display:flex;text-align:right}
+    .wow-countdown small{font-size:7px}
+    .wow-countdown strong{font-size:15px;color:var(--green)}
+    .wow-countdown .tee strong{color:#fff}
+
+    .pulse-ribbon{
+      margin:0 0 9px;padding:9px 12px;border:0;border-left:4px solid var(--pulse-accent);border-radius:7px;
+      background:#0d2017;box-shadow:none
+    }
+    .pulse-ribbon-inner{gap:9px}
+    .pulse-ribbon-label{font-size:7px}
+    .pulse-ribbon-message{font-size:11px;font-weight:800}
+
+    .bulletin{
+      margin-bottom:10px;padding:14px 15px;border:1px solid rgba(255,255,255,.08);border-radius:12px;
+      background:#10251a;box-shadow:none
+    }
+    .bulletin-kicker{color:var(--green);font-size:8px}
+    .bulletin h3{margin:6px 0 5px;font-size:16px}
+    .bulletin-lead{font-size:11px!important;line-height:1.4!important}
+    .bulletin-list{display:none}
+    .bulletin-action{margin-top:9px;font-size:9px}
+
+    #dashboard-journey-wrap{display:none}
+    .wow-grid{grid-template-columns:1fr 120px;gap:9px}
+    .team-roster-card,.living-weather{min-height:122px;padding:13px;border-radius:12px;box-shadow:none}
+    .team-roster-card{background:#10271b}
+    .living-weather{background:#10231a;text-align:left}
+    .living-weather .weather-sun{font-size:19px}
+    .living-weather .weather-temp{font-size:26px;line-height:1;margin-top:7px}
+    .living-weather p{margin-top:4px!important;font-size:9px!important}
+    .wind-arrow{margin-top:7px;font-size:8px}
+    .avatar-stack{margin-top:8px}
+    .roster-avatar{width:28px;height:28px;font-size:8px}
+    .roster-copy{margin-top:8px!important;font-size:9px!important}
+    .team-badge{font-size:7px}
+    .dashboard-main-action{margin-top:8px;padding:8px 9px;border-radius:8px;font-size:9px}
+
+    .dashboard-section-label{
+      margin:13px 1px 7px;color:#9db4a6;font-size:8px;letter-spacing:.16em
+    }
+    .premium-money{
+      min-height:150px;padding:15px;border:1px solid rgba(244,200,90,.28);border-radius:13px;
+      background:linear-gradient(135deg,#18301e,#0d1f16);box-shadow:inset 0 1px 0 rgba(255,255,255,.03)
+    }
+    .premium-money::before{
+      content:'MONEY GAME';position:absolute;right:-5px;top:17px;color:rgba(244,200,90,.07);
+      font-size:31px;font-weight:1000;letter-spacing:-.05em;transform:rotate(-5deg)
+    }
+    .premium-money::after{display:none}
+    .money-lockup{align-items:center}
+    .money-crown{font-size:26px}
+    .premium-money h3{font-size:20px!important;text-transform:uppercase;letter-spacing:.02em}
+    .premium-money p{max-width:230px;font-size:10px!important}
+    .money-stats{gap:5px;margin-top:12px}
+    .money-stat{padding:8px 4px;border-radius:7px;background:#0a1710;border-color:rgba(244,200,90,.16)}
+    .money-stat small{font-size:7px}
+    .money-stat strong{font-size:12px}
+    .dashboard-secondary-link{margin-top:10px;color:var(--gold);font-size:9px;font-weight:900}
+
+    @media(max-width:420px){
+      .wow-grid{grid-template-columns:1fr 112px}
+      .wow-hero h2{font-size:23px}
+    }
+
   </style>
 </head>
 
@@ -1828,7 +1912,7 @@
 
               <div class="system-item">
                 <span>Working On</span>
-                <span>Dashboard v0.5</span>
+                <span>Dashboard v0.6</span>
               </div>
 
               <div class="system-item">
@@ -1841,7 +1925,7 @@
               class="full-app-button"
               data-screen="dashboard"
             >
-              Review Dashboard v0.5
+              Review Dashboard v0.6
             </button>
           </div>
         </div>
