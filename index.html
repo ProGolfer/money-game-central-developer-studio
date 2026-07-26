@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v0.8 Official Recap</title>
+  <title>Money Game Central — Developer Studio v0.9 Design System</title>
 
   <style>
     :root {
@@ -1920,6 +1920,9 @@
       color: var(--muted);
     }
 
+    /* v0.9 — Frozen Broadcast Classic Design System */
+    .ds-hero{background:linear-gradient(135deg,rgba(17,94,55,.34),rgba(12,18,16,.98));border:1px solid rgba(79,214,137,.25);border-radius:24px;padding:28px;position:relative;overflow:hidden}.ds-hero:after{content:"MGC";position:absolute;right:20px;bottom:-18px;font-size:86px;font-weight:900;letter-spacing:-6px;color:rgba(255,255,255,.035)}.ds-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px}.ds-card{grid-column:span 6;background:var(--panel);border:1px solid var(--border);border-radius:20px;padding:22px}.ds-card.wide{grid-column:1/-1}.ds-title{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:15px}.swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.swatch{border-radius:15px;min-height:92px;padding:13px;display:flex;flex-direction:column;justify-content:flex-end;font-weight:800}.swatch small{font-weight:600;opacity:.72;margin-top:4px}.swatch.green{background:#1f8f52}.swatch.charcoal{background:#111814}.swatch.gold{background:#c89c3d;color:#151109}.swatch.blue{background:#2872b8}.swatch.red{background:#b94343}.component-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.ds-btn{border:0;border-radius:12px;padding:13px 18px;font-weight:900;letter-spacing:.04em}.ds-btn.primary{background:#28a864;color:white}.ds-btn.secondary{background:#202b25;color:white;border:1px solid #35463d}.ds-btn.gold{background:#c89c3d;color:#151109}.badge-demo{border-radius:999px;padding:7px 11px;font-size:12px;font-weight:900;background:rgba(40,168,100,.14);border:1px solid rgba(40,168,100,.35);color:#79dfa5}.score-demo,.winner-demo{display:grid;gap:8px}.demo-row{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;border-radius:13px;background:#111814;border:1px solid #28352e}.demo-row strong{font-size:20px}.type-demo h1{font-size:32px;margin:0 0 10px}.type-demo h2{font-size:21px;margin:0 0 8px}.type-demo p{margin:0;color:var(--muted)}.spacing-demo{display:grid;gap:10px}.space-line{height:9px;border-radius:99px;background:#2ca867}.space-line.s1{width:25%}.space-line.s2{width:50%}.space-line.s3{width:75%}.space-line.s4{width:100%}.frozen-rule{display:flex;gap:12px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}.frozen-rule:last-child{border-bottom:0}.frozen-rule b{color:#79dfa5}@media(max-width:820px){.ds-card{grid-column:1/-1}.swatches{grid-template-columns:repeat(2,1fr)}}
+
   </style>
 </head>
 
@@ -1931,7 +1934,7 @@
 
         <h1>Money Game Central</h1>
 
-        <p>v0.8 • Official Recap</p>
+        <p>v0.9 • Design System</p>
       </div>
 
       <div class="nav-section">
@@ -1981,6 +1984,13 @@
           data-screen="official-recap"
         >
           🏆 Official Recap
+        </button>
+
+        <button
+          class="nav-button"
+          data-screen="design-system"
+        >
+          🎨 Design System
         </button>
       </div>
 
@@ -2678,6 +2688,88 @@
         </div>
       </section>
 
+
+      <section id="design-system" class="screen">
+        <div class="ds-grid">
+          <div class="ds-hero ds-card wide">
+            <div class="eyebrow">Milestone • v0.9</div>
+            <h2 style="font-size:34px;margin:10px 0 8px">Broadcast Classic Design System</h2>
+            <p style="max-width:720px;color:var(--text)">The frozen visual foundation for Dashboard, My Team, Money Game, Official Recap and every screen built next.</p>
+            <div class="component-row" style="margin-top:20px"><span class="badge-demo">FROZEN DIRECTION</span><span class="status-pill">🟢 Core Protected</span></div>
+          </div>
+
+          <div class="ds-card wide">
+            <div class="ds-title">Brand Colors</div>
+            <div class="swatches">
+              <div class="swatch green">League Green<small>#1F8F52</small></div>
+              <div class="swatch charcoal">Broadcast Charcoal<small>#111814</small></div>
+              <div class="swatch gold">Money Gold<small>#C89C3D</small></div>
+              <div class="swatch blue">Information Blue<small>#2872B8</small></div>
+              <div class="swatch red">Alert Red<small>#B94343</small></div>
+            </div>
+          </div>
+
+          <div class="ds-card">
+            <div class="ds-title">Typography Hierarchy</div>
+            <div class="type-demo">
+              <h1>Official Recap</h1>
+              <h2>Money Game Breakdown</h2>
+              <p>Clear, familiar and readable on the golf course.</p>
+            </div>
+          </div>
+
+          <div class="ds-card">
+            <div class="ds-title">Primary Actions</div>
+            <div class="component-row">
+              <button class="ds-btn primary">VIEW SCORECARD</button>
+              <button class="ds-btn secondary">BACK</button>
+              <button class="ds-btn gold">OPEN RECAP</button>
+            </div>
+          </div>
+
+          <div class="ds-card">
+            <div class="ds-title">Score Rows</div>
+            <div class="score-demo">
+              <div class="demo-row"><span>Front</span><strong>112</strong></div>
+              <div class="demo-row"><span>Back</span><strong>109</strong></div>
+              <div class="demo-row"><span>Total</span><strong>221</strong></div>
+            </div>
+          </div>
+
+          <div class="ds-card">
+            <div class="ds-title">Winner & Push Rows</div>
+            <div class="winner-demo">
+              <div class="demo-row"><span>🥇 Gabe</span><strong>$65</strong></div>
+              <div class="demo-row"><span>🤝 Gabe / Mike</span><strong>$15 each</strong></div>
+              <div class="demo-row"><span>💩 Team 4</span><strong>198</strong></div>
+            </div>
+          </div>
+
+          <div class="ds-card">
+            <div class="ds-title">Spacing Rhythm</div>
+            <div class="spacing-demo">
+              <div class="space-line s1"></div><div class="space-line s2"></div><div class="space-line s3"></div><div class="space-line s4"></div>
+            </div>
+            <p style="margin-top:16px">Use consistent 8, 12, 18 and 24 pixel spacing. No crowded screens.</p>
+          </div>
+
+          <div class="ds-card">
+            <div class="ds-title">Motion Rules</div>
+            <div class="frozen-rule"><span>01</span><div><b>Fast</b><br><small>150–220ms transitions</small></div></div>
+            <div class="frozen-rule"><span>02</span><div><b>Subtle</b><br><small>Fade, slide and small scale only</small></div></div>
+            <div class="frozen-rule"><span>03</span><div><b>Useful</b><br><small>Motion explains state; never distracts</small></div></div>
+          </div>
+
+          <div class="ds-card wide">
+            <div class="ds-title">Frozen Product Rules</div>
+            <div class="frozen-rule"><span>✓</span><div><b>One hero feature per page.</b><br><small>Dashboard = today. My Team = team scoreboard. Recap = who won what.</small></div></div>
+            <div class="frozen-rule"><span>✓</span><div><b>Broadcast energy, familiar structure.</b><br><small>Strong hierarchy without reinventing the app.</small></div></div>
+            <div class="frozen-rule"><span>✓</span><div><b>Money rows always explain the payout.</b><br><small>Show winning score, winner or push, and the exact amount by player.</small></div></div>
+            <div class="frozen-rule"><span>✓</span><div><b>Core Engine remains untouched.</b><br><small>This system governs presentation only.</small></div></div>
+          </div>
+        </div>
+      </section>
+
       <section
         id="official-recap"
         class="screen"
@@ -2943,6 +3035,11 @@
       "official-recap": {
         title: "Official Recap Preview",
         subtitle: "Final standings, winners and payouts"
+      },
+
+      "design-system": {
+        title: "Design System v1.0",
+        subtitle: "Frozen Broadcast Classic visual foundation"
       }
     };
 
