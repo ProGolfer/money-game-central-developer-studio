@@ -2033,6 +2033,18 @@
     .draft-log-row b { color:var(--text); }
     .draft-complete-banner { display:none; padding:18px; border-radius:18px; background:linear-gradient(135deg,rgba(244,200,90,.15),rgba(53,233,120,.12)); border:1px solid rgba(244,200,90,.28); text-align:center; }
     .draft-complete-banner.show { display:block; }
+    .publish-actions { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:16px; }
+    .publish-status { margin-top:14px; padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.04); border:1px solid var(--line); color:var(--muted); }
+    .publish-status.live { color:#bfffd8; background:rgba(53,233,120,.09); border-color:rgba(53,233,120,.28); }
+    .official-teams-panel { display:none; margin-top:18px; padding:18px; border-radius:18px; background:linear-gradient(135deg,rgba(53,233,120,.10),rgba(244,200,90,.08)); border:1px solid rgba(53,233,120,.25); }
+    .official-teams-panel.show { display:block; }
+    .official-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:14px; }
+    .official-team { padding:14px; border-radius:14px; background:rgba(7,12,10,.55); border:1px solid var(--line); }
+    .official-team h4 { margin:0 0 8px; }
+    .official-team div { padding:5px 0; color:var(--muted); border-bottom:1px solid rgba(255,255,255,.05); }
+    .official-team div:last-child { border-bottom:0; }
+    @media(max-width:760px){ .official-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:460px){ .official-grid{grid-template-columns:1fr;} }
     .draft-modal { position:fixed; inset:0; z-index:80; display:none; place-items:center; padding:20px; background:rgba(0,0,0,.72); backdrop-filter:blur(8px); }
     .draft-modal.show { display:grid; }
     .draft-modal-card { width:min(480px,100%); padding:22px; border-radius:22px; border:1px solid var(--border); background:#0b1b14; box-shadow:0 30px 80px rgba(0,0,0,.5); }
@@ -2933,7 +2945,18 @@
             <div class="draft-live-pill"><small>Draft Status</small><strong id="draft-hero-status">Waiting for Admin</strong></div>
           </div>
 
-          <div id="draft-complete-banner" class="draft-complete-banner"><div class="eyebrow">Draft Complete</div><h3>Today’s teams are officially set.</h3><p style="color:var(--muted);margin-bottom:0">The team selection is ready to move into the existing scoring experience.</p></div>
+          <div id="draft-complete-banner" class="draft-complete-banner">
+            <div class="eyebrow">Draft Complete</div>
+            <h3 id="publish-banner-title">Today’s teams are ready to submit.</h3>
+            <p id="publish-banner-copy" style="color:var(--muted);margin-bottom:0">Review the teams, then publish them for the entire league.</p>
+            <div class="publish-actions"><button id="submit-publish-teams" class="draft-btn primary">Submit & Publish Teams</button></div>
+            <div id="publish-status" class="publish-status">Not published yet. Only the league admin can make today’s teams official.</div>
+          </div>
+          <div id="official-teams-panel" class="official-teams-panel">
+            <div class="draft-card-head"><div><div class="eyebrow">Official Teams</div><h3 style="margin:5px 0 0">Published for Everyone</h3></div><span>🔒 Captain scoring remains protected</span></div>
+            <p style="color:var(--muted);margin:8px 0 0">Every league member can view these teams. Only each team’s verified captain can enter or submit the official live scorecard.</p>
+            <div id="official-teams-grid" class="official-grid"></div>
+          </div>
 
           <div class="draft-top-grid">
             <div class="draft-card">
@@ -3532,7 +3555,7 @@
     ];
     let captainOrder = draftCaptainsBase.map(c=>({...c}));
     let customPattern = ["down","down","up"];
-    let draftState = { status:"lobby", mode:"snake", order:[], cursor:0, picks:[], seconds:45, timer:null, selectedPlayer:null };
+    let draftState = { status:"lobby", mode:"snake", order:[], cursor:0, picks:[], seconds:45, timer:null, selectedPlayer:null, published:false };
 
     const todayDraftPlayers = () => demoPlayers.filter(p=>p.today && !draftCaptainsBase.some(c=>c.playerId===p.id)).map((p,i)=>({...p,recent:[p.average-1.1+(i%3),p.average+.7-(i%2),p.average-.4+(i%2)].map(x=>Number(x.toFixed(1)))}));
 
@@ -3651,7 +3674,7 @@
     function startDraftTimer(){ stopDraftTimer(); if(draftState.mode==="manual")return; draftState.timer=setInterval(()=>{if(draftState.status!=="live")return;draftState.seconds=Math.max(0,draftState.seconds-1);document.getElementById("draft-timer").textContent=`0:${String(draftState.seconds).padStart(2,'0')}`;if(draftState.seconds===0){stopDraftTimer();draftState.status="paused";renderDraft();}},1000); }
     function undoDraftPick(){ const last=draftState.picks.pop(); if(!last)return; if(draftState.mode!=="manual")draftState.cursor=Math.max(0,draftState.cursor-1);draftState.status="paused";stopDraftTimer();renderDraft(); }
     function skipDraftPick(){ if(draftState.mode==="manual"||!currentSlot())return;draftState.cursor++; if(draftState.cursor>=draftState.order.length)draftState.status="complete";renderDraft(); }
-    function resetDraft(){ stopDraftTimer();draftState={status:"lobby",mode:document.getElementById("draft-mode").value,order:[],cursor:0,picks:[],seconds:45,timer:null,selectedPlayer:null};buildDraftOrder();renderDraft(); }
+    function resetDraft(){ stopDraftTimer();draftState={status:"lobby",mode:document.getElementById("draft-mode").value,order:[],cursor:0,picks:[],seconds:45,timer:null,selectedPlayer:null,published:false};buildDraftOrder();renderDraft(); }
 
     function renderDraftPlayers(){
       const query=(document.getElementById("draft-search")?.value||"").toLowerCase(); const sort=document.getElementById("draft-sort")?.value||"default";
@@ -3670,6 +3693,25 @@
       document.getElementById("draft-board").innerHTML=html;
       document.getElementById("draft-log-list").innerHTML=draftState.picks.length?[...draftState.picks].reverse().map(p=>`<div class="draft-log-row"><span>Pick #${p.overall} · Team ${p.team}</span><b>${p.player.name}</b></div>`).join(''):'<div class="viewer-status">No selections have been made.</div>';
     }
+    function renderOfficialTeams(){
+      const panel=document.getElementById("official-teams-panel");
+      const grid=document.getElementById("official-teams-grid");
+      if(!panel||!grid)return;
+      panel.classList.toggle("show",!!draftState.published);
+      grid.innerHTML=[1,2,3,4].map(team=>{
+        const roster=teamRoster(team);
+        return `<div class="official-team"><h4>Team ${team}</h4>${roster.map(p=>`<div>${p.captain?'♛ ':''}${p.name} <span style="float:right">${p.average.toFixed(1)}</span></div>`).join('')}</div>`;
+      }).join('');
+    }
+    function submitAndPublishTeams(){
+      if(draftState.status!=="complete"){alert("Finish the draft before submitting the teams.");return;}
+      if(document.getElementById("draft-role").value!=="admin"){alert("Only the league admin can publish the official teams.");return;}
+      if(!confirm("Publish today’s teams for the entire league? Captains will still be the only players allowed to keep the official live score."))return;
+      draftState.published=true;
+      renderDraft();
+      document.getElementById("official-teams-panel").scrollIntoView({behavior:"smooth",block:"center"});
+    }
+
     function renderDraft(){
       buildDraftOrder(); const slot=currentSlot(); const remaining=availablePlayers().length;
       document.getElementById("draft-mode-label").textContent=modeName(); document.getElementById("draft-remaining").textContent=remaining;
@@ -3685,7 +3727,17 @@
       const role=document.getElementById("draft-role").value; let viewer='You can watch every pick and inspect every player.'; if(role==='admin')viewer='<strong>Admin mode:</strong> you can make the active pick and control the draft.'; else if(Number(role))viewer=slot&&Number(role)===slot.team&&draftState.status==='live'?`<strong>Your pick:</strong> Team ${role} is on the clock.`:`Captain Team ${role} · waiting for ${slot?`Team ${slot.team}`:'the draft'}.`;document.getElementById("viewer-status").innerHTML=viewer;
       document.getElementById("pause-draft").textContent=draftState.status==='paused'?'Resume':'Pause'; document.getElementById("draft-complete-banner").classList.toggle('show',draftState.status==='complete');
       document.getElementById("pattern-field").style.display=draftState.mode==='custom'?'grid':'none'; document.getElementById("draft-board-caption").textContent=`${modeName()} order preview`;
-      renderDraftPlayers();renderTeams();renderBoard();
+      const publishBtn=document.getElementById("submit-publish-teams");
+      const publishStatus=document.getElementById("publish-status");
+      const isAdmin=role==='admin';
+      publishBtn.style.display=draftState.status==='complete'?'inline-flex':'none';
+      publishBtn.disabled=draftState.published||!isAdmin;
+      publishBtn.textContent=draftState.published?'✓ Teams Published':(isAdmin?'Submit & Publish Teams':'Admin Must Publish Teams');
+      publishStatus.classList.toggle('live',!!draftState.published);
+      publishStatus.textContent=draftState.published?'✓ Official teams are visible to everyone. Only verified captains can enter and submit their team’s live scorecard.':(isAdmin?'Not published yet. Review the teams, then make them official for everyone.':'Waiting for the league admin to publish today’s official teams.');
+      document.getElementById('publish-banner-title').textContent=draftState.published?'Today’s teams are officially published.':'Today’s teams are ready to submit.';
+      document.getElementById('publish-banner-copy').textContent=draftState.published?'The league can now view the official team assignments.':'Review the teams, then publish them for the entire league.';
+      renderDraftPlayers();renderTeams();renderBoard();renderOfficialTeams();
     }
 
     renderCaptainOrder(); renderPatternBuilder(); buildDraftOrder(); renderDraft();
@@ -3702,6 +3754,7 @@
     document.getElementById("reset-draft").addEventListener("click",resetDraft);
     document.getElementById("close-draft-modal").addEventListener("click",closeDraftModal);
     document.getElementById("confirm-draft-pick").addEventListener("click",confirmDraftPick);
+    document.getElementById("submit-publish-teams").addEventListener("click",submitAndPublishTeams);
     document.getElementById("draft-modal").addEventListener("click",e=>{if(e.target.id==='draft-modal')closeDraftModal();});
 
 
