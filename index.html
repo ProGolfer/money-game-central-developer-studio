@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v1.2.2 Draft Central</title>
+  <title>Money Game Central — Developer Studio v1.2.4</title>
 
   <style>
     :root {
@@ -2066,6 +2066,113 @@
     @media(max-width:900px){.player-row{grid-template-columns:minmax(190px,1fr) 90px minmax(180px,1fr)}.profile-open{display:none}.players-hero{align-items:flex-start;flex-direction:column}}
     @media(max-width:650px){.players-toolbar{align-items:stretch;flex-direction:column}.players-filter{overflow-x:auto;flex-wrap:nowrap}.player-row{grid-template-columns:1fr 72px;padding:12px}.player-awards{grid-column:1/-1;padding-left:54px}.players-hero h2{font-size:25px}.players-count{min-width:92px}.player-section-head{padding:14px}.player-section-head span{display:none}}
 
+    /* v1.2.4 — Cleaner achievement and trophy presentation */
+    .monthly-award,
+    .draft-mini-badge {
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      min-height:30px;
+      padding:6px 10px;
+      border-radius:10px;
+      border:1px solid rgba(244,200,90,.38);
+      background:linear-gradient(180deg,rgba(244,200,90,.16),rgba(244,200,90,.07));
+      color:#fff0b7;
+      font-size:11px;
+      line-height:1.15;
+      font-weight:900;
+      letter-spacing:.01em;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 5px 14px rgba(0,0,0,.16);
+      white-space:nowrap;
+    }
+    .monthly-award.green {
+      border-color:rgba(53,233,120,.42);
+      background:linear-gradient(180deg,rgba(53,233,120,.16),rgba(53,233,120,.065));
+      color:#b8ffd1;
+    }
+    .monthly-award.poop,
+    .draft-mini-badge.poop {
+      border-color:rgba(198,135,76,.48);
+      background:linear-gradient(180deg,rgba(139,91,43,.34),rgba(94,57,26,.20));
+      color:#ffd7a8;
+    }
+    .award-count {
+      min-width:25px;
+      height:21px;
+      padding:0 7px;
+      margin-left:2px;
+      border:1px solid rgba(255,255,255,.15);
+      background:#09130e;
+      color:#fff;
+      font-size:10px;
+      box-shadow:none;
+    }
+    .draft-mini-badge { min-height:26px; padding:5px 8px; border-radius:9px; }
+    .award-key {
+      align-items:center;
+      gap:9px;
+      padding:16px;
+      border-style:solid;
+      background:rgba(9,20,15,.82);
+    }
+    .award-key b { margin-right:3px; color:#fff; }
+    .award-key span {
+      display:inline-flex;
+      align-items:center;
+      min-height:29px;
+      padding:6px 9px;
+      border-radius:9px;
+      border:1px solid rgba(244,200,90,.24);
+      background:rgba(244,200,90,.07);
+      color:#f8e7ae;
+      font-weight:800;
+    }
+    .trophy {
+      min-height:154px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      border-color:rgba(244,200,90,.27);
+      background:linear-gradient(155deg,rgba(244,200,90,.10),rgba(13,24,19,.96) 58%);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 8px 22px rgba(0,0,0,.18);
+    }
+    .trophy-icon {
+      width:58px;
+      height:58px;
+      display:grid;
+      place-items:center;
+      border-radius:17px;
+      border:1px solid rgba(244,200,90,.28);
+      background:rgba(244,200,90,.10);
+      font-size:34px;
+      line-height:1;
+    }
+    .trophy small {
+      min-height:28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#edf8f1;
+      font-size:11px;
+      font-weight:850;
+      line-height:1.25;
+    }
+    .trophy strong {
+      margin-top:0;
+      padding:4px 9px;
+      border-radius:999px;
+      background:rgba(244,200,90,.12);
+      color:#ffd975;
+      font-size:16px;
+    }
+    @media(max-width:650px){
+      .monthly-award,.draft-mini-badge{white-space:normal}
+      .award-key span{font-size:10px}
+    }
+
   </style>
 </head>
 
@@ -2077,7 +2184,7 @@
 
         <h1>Money Game Central</h1>
 
-        <p>v1.0 • Player Profile</p>
+        <p>v1.2.4 • Draft Central</p>
       </div>
 
       <div class="nav-section">
@@ -2096,66 +2203,41 @@
         >
           🎮 Developer Home
         </button>
+
+        <button class="nav-button" data-screen="design-system">
+          🎨 Design System
+        </button>
       </div>
 
       <div class="nav-section">
         <div class="nav-label">UI Preview</div>
 
-        <button
-          class="nav-button"
-          data-screen="dashboard"
-        >
+        <button class="nav-button" data-screen="dashboard">
           🏠 Dashboard
         </button>
 
-        <button
-          class="nav-button"
-          data-screen="my-team"
-        >
+        <button class="nav-button" data-screen="my-team">
           👥 My Team
         </button>
 
-        <button
-          class="nav-button"
-          data-screen="live-scorecard"
-        >
-          ⛳ Live Scorecard
+        <button class="nav-button" data-screen="live-scorecard">
+          ⛳ Live Scoring
         </button>
 
-        <button
-          class="nav-button"
-          data-screen="official-recap"
-        >
-          🏆 Official Recap
-        </button>
-
-
-        <button
-          class="nav-button"
-          data-screen="draft-central"
-        >
-          🏆 Draft Central
-        </button>
-
-        <button
-          class="nav-button"
-          data-screen="players"
-        >
+        <button class="nav-button" data-screen="players">
           👥 Players
         </button>
 
-        <button
-          class="nav-button"
-          data-screen="player-profile"
-        >
+        <button class="nav-button" data-screen="player-profile">
           👤 My Profile
         </button>
 
-        <button
-          class="nav-button"
-          data-screen="design-system"
-        >
-          🎨 Design System
+        <button class="nav-button" data-screen="draft-central">
+          🏆 Draft Central
+        </button>
+
+        <button class="nav-button" data-screen="official-recap">
+          📋 Official Recap
         </button>
       </div>
 
