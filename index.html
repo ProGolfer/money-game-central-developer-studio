@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v1.0 Player Profile</title>
+  <title>Money Game Central — Developer Studio v1.2 Draft Central</title>
 
   <style>
     :root {
@@ -1941,6 +1941,108 @@
     @media(max-width:760px){.profile-body{padding:12px}.profile-toolbar{align-items:flex-start}.profile-tools{justify-content:flex-end}.profile-hero{grid-template-columns:1fr;text-align:center;padding:22px}.profile-avatar{margin:auto;width:145px;height:145px}.profile-name{font-size:36px}.profile-badges,.profile-meta{justify-content:center}.profile-actions{grid-template-columns:repeat(2,1fr)}.profile-card,.profile-card.span-5,.profile-card.span-7,.snapshot,.rounds-chart{grid-column:1/-1}.snapshot-grid{grid-template-columns:repeat(2,1fr)}.snapshot-stat:nth-child(3n){border-right:1px solid var(--border)}.snapshot-stat:nth-child(2n){border-right:0}.snapshot-stat:nth-child(n+5){border-bottom:0}.round-chips{grid-template-columns:repeat(5,minmax(70px,1fr));overflow-x:auto}.trophies{grid-template-columns:repeat(2,1fr)}.timeline-row{grid-template-columns:85px 80px 1fr 55px;font-size:12px}}
 
 
+
+    /* v1.2 — Draft Central */
+    .draft-shell { display:grid; gap:18px; }
+    .draft-hero { position:relative; overflow:hidden; display:flex; justify-content:space-between; gap:22px; align-items:flex-start; padding:24px; border:1px solid rgba(244,200,90,.24); border-radius:24px; background:linear-gradient(135deg,rgba(244,200,90,.12),rgba(53,233,120,.08) 55%,rgba(12,29,22,.95)); box-shadow:var(--shadow); }
+    .draft-hero:after { content:""; position:absolute; width:280px; height:280px; border-radius:50%; right:-120px; top:-170px; border:38px solid rgba(244,200,90,.07); }
+    .draft-hero h2 { margin:7px 0 8px; font-size:clamp(28px,4vw,46px); }
+    .draft-hero p { max-width:700px; margin:0; color:var(--muted); line-height:1.6; }
+    .draft-live-pill { position:relative; z-index:1; min-width:220px; padding:15px 17px; border-radius:18px; border:1px solid var(--border); background:rgba(5,15,11,.68); }
+    .draft-live-pill small { display:block; color:var(--muted); font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
+    .draft-live-pill strong { display:block; margin-top:5px; color:var(--green); font-size:20px; }
+    .draft-top-grid { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr); gap:18px; }
+    .draft-card { padding:20px; border:1px solid var(--border); border-radius:20px; background:rgba(12,29,22,.88); box-shadow:0 12px 30px rgba(0,0,0,.18); }
+    .draft-card-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:16px; }
+    .draft-card-head h3 { margin:0; }
+    .draft-card-head span { color:var(--muted); font-size:13px; }
+    .on-clock { display:grid; grid-template-columns:auto 1fr auto; gap:15px; align-items:center; padding:18px; border-radius:18px; background:linear-gradient(135deg,rgba(53,233,120,.16),rgba(53,233,120,.04)); border:1px solid rgba(53,233,120,.25); }
+    .clock-team { width:54px; height:54px; display:grid; place-items:center; border-radius:16px; background:var(--green); color:#03240f; font-size:22px; font-weight:950; }
+    .clock-copy small { color:var(--green); font-weight:900; letter-spacing:.09em; text-transform:uppercase; }
+    .clock-copy strong { display:block; margin-top:4px; font-size:22px; }
+    .clock-copy span { color:var(--muted); font-size:13px; }
+    .draft-timer { text-align:right; }
+    .draft-timer strong { display:block; font-size:28px; color:var(--gold); }
+    .draft-timer small { color:var(--muted); }
+    .draft-progress { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px; }
+    .draft-progress div { padding:11px; border-radius:13px; background:rgba(255,255,255,.035); border:1px solid var(--border); text-align:center; }
+    .draft-progress strong { display:block; color:var(--text); }
+    .draft-progress small { color:var(--muted); }
+    .role-control { display:grid; gap:10px; }
+    .role-control label,.admin-field label { color:var(--muted); font-size:12px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .draft-select { width:100%; padding:12px 13px; border-radius:12px; border:1px solid var(--border); background:#081711; color:var(--text); }
+    .viewer-status { padding:12px; border-radius:12px; background:rgba(255,255,255,.035); color:var(--muted); font-size:13px; line-height:1.5; }
+    .viewer-status strong { color:var(--green); }
+    .draft-admin { padding:20px; border:1px solid rgba(244,200,90,.2); border-radius:20px; background:linear-gradient(180deg,rgba(244,200,90,.07),rgba(12,29,22,.88)); }
+    .admin-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .admin-field { display:grid; gap:7px; }
+    .admin-field.full { grid-column:1/-1; }
+    .captain-order { display:grid; gap:8px; }
+    .captain-order-row { display:grid; grid-template-columns:36px 1fr auto auto; gap:9px; align-items:center; padding:10px; border-radius:13px; border:1px solid var(--border); background:rgba(0,0,0,.14); }
+    .captain-order-row b { color:var(--gold); }
+    .order-btn { width:31px; height:31px; border-radius:9px; border:1px solid var(--border); background:rgba(255,255,255,.045); color:var(--text); }
+    .pattern-builder { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+    .pattern-round { padding:10px; border-radius:12px; border:1px solid var(--border); background:rgba(0,0,0,.13); }
+    .pattern-round small { display:block; color:var(--muted); margin-bottom:6px; }
+    .draft-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:15px; }
+    .draft-btn { padding:11px 14px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,.05); color:var(--text); font-weight:850; }
+    .draft-btn.primary { border-color:transparent; background:var(--green); color:#03240f; }
+    .draft-btn.gold { border-color:transparent; background:var(--gold); color:#2c2103; }
+    .draft-btn.danger { color:#ff8e8e; }
+    .draft-btn:disabled { opacity:.38; cursor:not-allowed; }
+    .draft-main-grid { display:grid; grid-template-columns:minmax(330px,1.05fr) minmax(400px,1.35fr); gap:18px; align-items:start; }
+    .available-toolbar { display:flex; gap:9px; margin-bottom:13px; }
+    .draft-search { flex:1; min-width:0; padding:12px 13px; border-radius:12px; border:1px solid var(--border); background:#081711; color:var(--text); }
+    .draft-player-list { display:grid; gap:10px; max-height:760px; overflow:auto; padding-right:3px; }
+    .draft-player { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:12px; align-items:center; padding:13px; border:1px solid var(--border); border-radius:16px; background:rgba(255,255,255,.028); transition:.18s ease; }
+    .draft-player:hover { transform:translateY(-1px); border-color:rgba(53,233,120,.25); }
+    .draft-avatar { width:44px; height:44px; display:grid; place-items:center; border-radius:13px; background:linear-gradient(135deg,var(--panel-3),#071710); color:var(--green); font-weight:950; }
+    .draft-player-name { font-weight:900; }
+    .draft-player-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:5px; }
+    .draft-mini-badge { padding:4px 7px; border-radius:999px; background:rgba(244,200,90,.1); color:#f8d982; font-size:10px; font-weight:800; }
+    .draft-mini-badge.poop { background:rgba(139,91,43,.22); color:#e7bd86; }
+    .draft-player-score { text-align:right; }
+    .draft-player-score strong { display:block; font-size:19px; }
+    .draft-player-score small { color:var(--muted); }
+    .draft-player-buttons { grid-column:2/-1; display:flex; justify-content:flex-end; gap:7px; }
+    .tiny-btn { padding:7px 9px; border-radius:9px; border:1px solid var(--border); background:transparent; color:var(--muted); font-size:11px; font-weight:850; }
+    .tiny-btn.pick { background:var(--green); color:#03240f; border-color:transparent; }
+    .tiny-btn.pick:disabled { background:rgba(255,255,255,.06); color:#6f897b; }
+    .teams-board { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .draft-team { min-height:210px; padding:15px; border:1px solid var(--border); border-radius:17px; background:rgba(255,255,255,.025); }
+    .draft-team.active { border-color:rgba(53,233,120,.38); box-shadow:inset 0 0 0 1px rgba(53,233,120,.08); }
+    .draft-team-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; padding-bottom:11px; border-bottom:1px solid var(--border); }
+    .draft-team-head h4 { margin:0; }
+    .draft-team-head small { color:var(--muted); }
+    .team-average { text-align:right; }
+    .team-average strong { display:block; color:var(--gold); }
+    .team-roster { display:grid; gap:8px; margin-top:11px; }
+    .team-player { display:flex; justify-content:space-between; gap:8px; padding:8px 9px; border-radius:10px; background:rgba(0,0,0,.14); font-size:12px; }
+    .team-player.captain { color:var(--green); }
+    .draft-board-wrap { margin-top:18px; }
+    .draft-board-grid { display:grid; grid-template-columns:74px repeat(4,1fr); gap:7px; }
+    .board-cell { min-height:54px; padding:8px; display:flex; align-items:center; justify-content:center; text-align:center; border-radius:11px; border:1px solid var(--border); background:rgba(255,255,255,.027); font-size:11px; }
+    .board-cell.header { min-height:auto; color:var(--muted); font-weight:900; }
+    .board-cell.round { color:var(--gold); font-weight:900; }
+    .board-cell.filled { background:rgba(53,233,120,.09); color:#caffe0; }
+    .draft-log { margin-top:14px; display:grid; gap:7px; }
+    .draft-log-row { display:flex; justify-content:space-between; gap:10px; padding:9px 10px; border-radius:10px; background:rgba(0,0,0,.13); color:var(--muted); font-size:12px; }
+    .draft-log-row b { color:var(--text); }
+    .draft-complete-banner { display:none; padding:18px; border-radius:18px; background:linear-gradient(135deg,rgba(244,200,90,.15),rgba(53,233,120,.12)); border:1px solid rgba(244,200,90,.28); text-align:center; }
+    .draft-complete-banner.show { display:block; }
+    .draft-modal { position:fixed; inset:0; z-index:80; display:none; place-items:center; padding:20px; background:rgba(0,0,0,.72); backdrop-filter:blur(8px); }
+    .draft-modal.show { display:grid; }
+    .draft-modal-card { width:min(480px,100%); padding:22px; border-radius:22px; border:1px solid var(--border); background:#0b1b14; box-shadow:0 30px 80px rgba(0,0,0,.5); }
+    .snapshot-top { display:flex; gap:13px; align-items:center; margin-bottom:15px; }
+    .snapshot-top h3 { margin:0; font-size:24px; }
+    .snapshot-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+    .snapshot-stats div { padding:12px; border-radius:12px; background:rgba(255,255,255,.035); text-align:center; }
+    .snapshot-stats strong { display:block; font-size:20px; }
+    .snapshot-stats small { color:var(--muted); }
+    .snapshot-awards { display:flex; flex-wrap:wrap; gap:7px; margin:14px 0; }
+    @media(max-width:1100px){ .draft-top-grid,.draft-main-grid{grid-template-columns:1fr}.draft-player-list{max-height:none} }
+    @media(max-width:720px){ .draft-hero{display:grid}.draft-live-pill{min-width:0}.draft-progress{grid-template-columns:1fr 1fr}.admin-grid,.teams-board{grid-template-columns:1fr}.pattern-builder{grid-template-columns:1fr}.draft-board-grid{grid-template-columns:58px repeat(4,minmax(70px,1fr));overflow-x:auto}.draft-player{grid-template-columns:auto 1fr}.draft-player-score{grid-column:2;text-align:left}.draft-player-buttons{grid-column:1/-1}.on-clock{grid-template-columns:auto 1fr}.draft-timer{grid-column:1/-1;text-align:left;display:flex;gap:8px;align-items:baseline}.snapshot-stats{grid-template-columns:1fr 1fr 1fr} }
+
     /* v1.1 — Today-First Players Directory */
     .players-shell{display:grid;gap:18px}.players-hero{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:24px;border:1px solid rgba(53,233,120,.24);border-radius:22px;background:linear-gradient(135deg,rgba(20,84,50,.42),rgba(8,20,14,.97))}.players-hero h2{margin:4px 0 6px;font-size:30px}.players-hero p{margin:0;color:var(--muted)}.players-counts{display:flex;gap:10px;flex-wrap:wrap}.players-count{min-width:110px;padding:12px 14px;border-radius:13px;border:1px solid var(--border);background:rgba(5,15,11,.72);text-align:center}.players-count strong{display:block;font-size:23px;color:var(--green)}.players-count small{color:var(--muted)}
     .players-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:14px;border:1px solid var(--border);border-radius:16px;background:rgba(12,29,22,.84)}.player-search{flex:1;min-width:190px;border:1px solid var(--border);border-radius:12px;background:#07110c;color:var(--text);padding:12px 14px;outline:none}.player-search:focus{border-color:rgba(53,233,120,.42)}.players-filter{display:flex;gap:8px;flex-wrap:wrap}.filter-chip{border:1px solid var(--border);border-radius:999px;background:#0c1712;color:#cde0d4;padding:9px 12px;font-size:12px;font-weight:800}.filter-chip.active{background:rgba(53,233,120,.14);border-color:rgba(53,233,120,.35);color:var(--green)}
@@ -2012,6 +2114,13 @@
           🏆 Official Recap
         </button>
 
+
+        <button
+          class="nav-button"
+          data-screen="draft-central"
+        >
+          🏆 Draft Central
+        </button>
 
         <button
           class="nav-button"
@@ -2809,6 +2918,83 @@
 
 
 
+
+      <section id="draft-central" class="screen">
+        <div class="draft-shell">
+          <div class="draft-hero">
+            <div>
+              <div class="eyebrow">Saturday Team Selection</div>
+              <h2>Draft Central</h2>
+              <p>Everyone can watch the live team draft. Player averages, recent form and monthly achievements stay visible. Only the captain whose turn is active can make the next pick.</p>
+            </div>
+            <div class="draft-live-pill"><small>Draft Status</small><strong id="draft-hero-status">Waiting for Admin</strong></div>
+          </div>
+
+          <div id="draft-complete-banner" class="draft-complete-banner"><div class="eyebrow">Draft Complete</div><h3>Today’s teams are officially set.</h3><p style="color:var(--muted);margin-bottom:0">The team selection is ready to move into the existing scoring experience.</p></div>
+
+          <div class="draft-top-grid">
+            <div class="draft-card">
+              <div class="draft-card-head"><h3>Live Draft</h3><span id="draft-pick-label">Lobby · No picks yet</span></div>
+              <div class="on-clock">
+                <div class="clock-team" id="clock-team">—</div>
+                <div class="clock-copy"><small id="clock-kicker">Waiting</small><strong id="clock-title">Admin has not started the draft</strong><span id="clock-subtitle">Captains and players may review the board.</span></div>
+                <div class="draft-timer"><strong id="draft-timer">0:45</strong><small>Demo clock</small></div>
+              </div>
+              <div class="draft-progress">
+                <div><strong id="draft-round">—</strong><small>Round</small></div>
+                <div><strong id="draft-pick">—</strong><small>Overall Pick</small></div>
+                <div><strong id="draft-remaining">12</strong><small>Players Left</small></div>
+                <div><strong id="draft-mode-label">Snake</strong><small>Draft Mode</small></div>
+              </div>
+            </div>
+
+            <div class="draft-card">
+              <div class="draft-card-head"><h3>View As</h3><span>Demo permissions</span></div>
+              <div class="role-control">
+                <label for="draft-role">Current viewer</label>
+                <select id="draft-role" class="draft-select">
+                  <option value="viewer">League Player · Watch Only</option>
+                  <option value="1">Gabe · Captain Team 1</option>
+                  <option value="2">Mike · Captain Team 2</option>
+                  <option value="3">Ryan · Captain Team 3</option>
+                  <option value="4">Chris · Captain Team 4</option>
+                  <option value="admin">League Admin</option>
+                </select>
+                <div class="viewer-status" id="viewer-status">You can watch every pick and inspect every player. Captain controls unlock only during that captain’s turn.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="draft-admin">
+            <div class="draft-card-head"><div><div class="eyebrow">Admin Command Center</div><h3 style="margin:5px 0 0">Draft Setup & Order</h3></div><span>Demo controls</span></div>
+            <div class="admin-grid">
+              <div class="admin-field"><label for="draft-mode">Draft Mode</label><select id="draft-mode" class="draft-select"><option value="snake">🐍 Snake Draft</option><option value="custom">↕ Custom Pattern</option><option value="manual">✋ Manual Teams</option></select></div>
+              <div class="admin-field"><label for="first-pick">First Pick</label><select id="first-pick" class="draft-select"><option value="1">Team 1</option><option value="2">Team 2</option><option value="3">Team 3</option><option value="4">Team 4</option></select></div>
+              <div class="admin-field full"><label>Captain Order</label><div id="captain-order" class="captain-order"></div></div>
+              <div class="admin-field full" id="pattern-field" style="display:none"><label>Custom Round Pattern</label><div id="pattern-builder" class="pattern-builder"></div></div>
+            </div>
+            <div class="draft-actions"><button id="preview-order" class="draft-btn">Preview Order</button><button id="start-draft" class="draft-btn primary">Start Draft</button><button id="pause-draft" class="draft-btn">Pause</button><button id="undo-pick" class="draft-btn">Undo Pick</button><button id="skip-pick" class="draft-btn">Skip Turn</button><button id="reset-draft" class="draft-btn danger">Reset Draft</button></div>
+          </div>
+
+          <div class="draft-main-grid">
+            <div class="draft-card">
+              <div class="draft-card-head"><h3>Available Players</h3><span id="available-count">12 available</span></div>
+              <div class="available-toolbar"><input id="draft-search" class="draft-search" type="search" placeholder="Search today’s players..."><select id="draft-sort" class="draft-select" style="width:auto"><option value="default">Draft list</option><option value="average">Lowest avg</option><option value="hot">Most badges</option></select></div>
+              <div id="draft-player-list" class="draft-player-list"></div>
+            </div>
+
+            <div class="draft-card">
+              <div class="draft-card-head"><h3>Today’s Teams</h3><span>Updates after every pick</span></div>
+              <div id="draft-teams" class="teams-board"></div>
+              <div class="draft-board-wrap"><div class="draft-card-head"><h3>Draft Board</h3><span id="draft-board-caption">Order preview</span></div><div id="draft-board" class="draft-board-grid"></div></div>
+              <div class="draft-log"><div class="draft-card-head" style="margin:0"><h3>Pick History</h3><span>Newest first</span></div><div id="draft-log-list"></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="draft-modal" class="draft-modal" aria-hidden="true"><div class="draft-modal-card"><div id="draft-modal-content"></div><div class="draft-actions"><button id="close-draft-modal" class="draft-btn">Close</button><button id="confirm-draft-pick" class="draft-btn primary">Confirm Pick</button></div></div></div>
+
       <section id="players" class="screen">
         <div class="players-shell">
           <div class="players-hero">
@@ -3151,6 +3337,11 @@
         subtitle: "Scorekeeper and teammate experience"
       },
 
+      "draft-central": {
+        title: "Draft Central Preview",
+        subtitle: "Live team draft, captain turns and admin order controls"
+      },
+
       players: {
         title: "Players Preview",
         subtitle: "Today-first league directory with averages and monthly trophies"
@@ -3326,6 +3517,162 @@
     }));
     renderPlayers();
     loadMyProfile();
+
+
+
+    // Draft Central demo — presentation layer only. Production engine remains frozen.
+    const draftCaptainsBase = [
+      { team:1, playerId:2, name:"Gabe Johnson", initials:"GJ" },
+      { team:2, playerId:1, name:"Mike Smith", initials:"MS" },
+      { team:3, playerId:3, name:"Ryan White", initials:"RW" },
+      { team:4, playerId:4, name:"Chris Hall", initials:"CH" }
+    ];
+    let captainOrder = draftCaptainsBase.map(c=>({...c}));
+    let customPattern = ["down","down","up"];
+    let draftState = { status:"lobby", mode:"snake", order:[], cursor:0, picks:[], seconds:45, timer:null, selectedPlayer:null };
+
+    const todayDraftPlayers = () => demoPlayers.filter(p=>p.today && !draftCaptainsBase.some(c=>c.playerId===p.id)).map((p,i)=>({...p,recent:[p.average-1.1+(i%3),p.average+.7-(i%2),p.average-.4+(i%2)].map(x=>Number(x.toFixed(1)))}));
+
+    function moveCaptain(index,dir){
+      const next=index+dir;
+      if(next<0||next>=captainOrder.length||draftState.status!=="lobby") return;
+      [captainOrder[index],captainOrder[next]]=[captainOrder[next],captainOrder[index]];
+      captainOrder.forEach((c,i)=>c.team=i+1);
+      renderCaptainOrder(); buildDraftOrder(); renderDraft();
+    }
+    function renderCaptainOrder(){
+      document.getElementById("captain-order").innerHTML=captainOrder.map((c,i)=>`<div class="captain-order-row"><b>${i+1}</b><span>${c.name} · Team ${c.team}</span><button class="order-btn" onclick="moveCaptain(${i},-1)" ${i===0?'disabled':''}>↑</button><button class="order-btn" onclick="moveCaptain(${i},1)" ${i===captainOrder.length-1?'disabled':''}>↓</button></div>`).join("");
+    }
+    function renderPatternBuilder(){
+      document.getElementById("pattern-builder").innerHTML=customPattern.map((direction,i)=>`<div class="pattern-round"><small>Round ${i+1}</small><select class="draft-select" onchange="customPattern[${i}]=this.value;buildDraftOrder();renderDraft()"><option value="down" ${direction==='down'?'selected':''}>↓ Down</option><option value="up" ${direction==='up'?'selected':''}>↑ Up</option></select></div>`).join("");
+    }
+    function orderedTeamsFromFirst(){
+      const first=Number(document.getElementById("first-pick")?.value||1);
+      const ids=captainOrder.map(c=>c.team);
+      const at=ids.indexOf(first);
+      return at>=0 ? ids.slice(at).concat(ids.slice(0,at)) : ids;
+    }
+    function buildDraftOrder(){
+      const mode=document.getElementById("draft-mode")?.value||draftState.mode;
+      draftState.mode=mode;
+      const count=todayDraftPlayers().length;
+      if(mode==="manual"){ draftState.order=[]; return; }
+      const base=orderedTeamsFromFirst();
+      const rounds=Math.ceil(count/base.length);
+      const order=[];
+      for(let r=0;r<rounds;r++){
+        let roundOrder;
+        if(mode==="snake") roundOrder=r%2===0?base:[...base].reverse();
+        else roundOrder=(customPattern[r]||"down")==="down"?base:[...base].reverse();
+        roundOrder.forEach(team=>order.push({team,round:r+1}));
+      }
+      draftState.order=order.slice(0,count);
+    }
+    function currentSlot(){ return draftState.order[draftState.cursor]||null; }
+    function availablePlayers(){ const picked=new Set(draftState.picks.map(p=>p.player.id)); return todayDraftPlayers().filter(p=>!picked.has(p.id)); }
+    function canViewerPick(team){
+      const role=document.getElementById("draft-role")?.value||"viewer";
+      if(draftState.mode==="manual") return role==="admin" || Number(role)===team;
+      return draftState.status==="live" && (role==="admin" || Number(role)===team) && currentSlot()?.team===team;
+    }
+    function teamRoster(team){
+      const captain=captainOrder.find(c=>c.team===team);
+      return [{name:captain?.name||`Captain ${team}`,average:demoPlayers.find(p=>p.id===captain?.playerId)?.average||0,captain:true},...draftState.picks.filter(p=>p.team===team).map(p=>({name:p.player.name,average:p.player.average,captain:false}))];
+    }
+    function averageOf(roster){ return roster.length?(roster.reduce((a,p)=>a+p.average,0)/roster.length).toFixed(1):"—"; }
+    function modeName(){ return draftState.mode==="snake"?"Snake":draftState.mode==="custom"?"Custom":"Manual"; }
+    function awardTiny(a){ return `<span class="draft-mini-badge ${a.label.includes('💩')?'poop':''}">${a.label}${a.count>1?` ×${a.count}`:''}</span>`; }
+    function openDraftSnapshot(id){
+      const p=todayDraftPlayers().find(x=>x.id===id); if(!p)return;
+      draftState.selectedPlayer=p;
+      const slot=currentSlot(); const targetTeam=draftState.mode==="manual" ? (Number(document.getElementById("draft-role").value)||1) : slot?.team;
+      document.getElementById("draft-modal-content").innerHTML=`<div class="snapshot-top"><div class="draft-avatar" style="width:58px;height:58px">${p.initials}</div><div><div class="eyebrow">Player Snapshot</div><h3>${p.name}</h3></div></div><div class="snapshot-stats"><div><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div><strong>${p.recent.join(' · ')}</strong><small>Last 3</small></div><div><strong>${p.awards.reduce((a,b)=>a+b.count,0)}</strong><small>Monthly Marks</small></div></div><div class="snapshot-awards">${p.awards.length?p.awards.map(awardTiny).join(''):'<span class="draft-mini-badge">Personal average tracked</span>'}</div><p style="color:var(--muted);line-height:1.55">${targetTeam?`Ready to add <b style="color:var(--text)">${p.name}</b> to Team ${targetTeam}.`:'Reviewing player details. The draft has not started.'}</p>`;
+      const confirm=document.getElementById("confirm-draft-pick"); confirm.style.display=targetTeam&&canViewerPick(targetTeam)?"inline-flex":"none";
+      document.getElementById("draft-modal").classList.add("show");
+    }
+    function closeDraftModal(){ document.getElementById("draft-modal").classList.remove("show"); draftState.selectedPlayer=null; }
+    function makePick(player,forcedTeam){
+      if(!player)return;
+      const team=forcedTeam || currentSlot()?.team;
+      if(!team || !canViewerPick(team)) return;
+      const slot=currentSlot();
+      draftState.picks.push({player,team,round:slot?.round||Math.ceil(draftState.picks.length/4)+1,overall:draftState.picks.length+1});
+      if(draftState.mode!=="manual") draftState.cursor++;
+      draftState.seconds=45;
+      if(!availablePlayers().length){ draftState.status="complete"; stopDraftTimer(); }
+      closeDraftModal(); renderDraft();
+    }
+    function confirmDraftPick(){
+      const role=document.getElementById("draft-role").value;
+      const team=draftState.mode==="manual"?(role==="admin"?1:Number(role)):currentSlot()?.team;
+      makePick(draftState.selectedPlayer,team);
+    }
+    function startDraft(){
+      buildDraftOrder();
+      if(!draftState.order.length && draftState.mode!=="manual"){alert("No draft order is available.");return;}
+      draftState.status="live"; draftState.seconds=45; startDraftTimer(); renderDraft();
+    }
+    function pauseDraft(){
+      if(draftState.status==="live"){draftState.status="paused";stopDraftTimer();}
+      else if(draftState.status==="paused"){draftState.status="live";startDraftTimer();}
+      renderDraft();
+    }
+    function stopDraftTimer(){ if(draftState.timer){clearInterval(draftState.timer);draftState.timer=null;} }
+    function startDraftTimer(){ stopDraftTimer(); if(draftState.mode==="manual")return; draftState.timer=setInterval(()=>{if(draftState.status!=="live")return;draftState.seconds=Math.max(0,draftState.seconds-1);document.getElementById("draft-timer").textContent=`0:${String(draftState.seconds).padStart(2,'0')}`;if(draftState.seconds===0){stopDraftTimer();draftState.status="paused";renderDraft();}},1000); }
+    function undoDraftPick(){ const last=draftState.picks.pop(); if(!last)return; if(draftState.mode!=="manual")draftState.cursor=Math.max(0,draftState.cursor-1);draftState.status="paused";stopDraftTimer();renderDraft(); }
+    function skipDraftPick(){ if(draftState.mode==="manual"||!currentSlot())return;draftState.cursor++; if(draftState.cursor>=draftState.order.length)draftState.status="complete";renderDraft(); }
+    function resetDraft(){ stopDraftTimer();draftState={status:"lobby",mode:document.getElementById("draft-mode").value,order:[],cursor:0,picks:[],seconds:45,timer:null,selectedPlayer:null};buildDraftOrder();renderDraft(); }
+
+    function renderDraftPlayers(){
+      const query=(document.getElementById("draft-search")?.value||"").toLowerCase(); const sort=document.getElementById("draft-sort")?.value||"default";
+      let list=availablePlayers().filter(p=>p.name.toLowerCase().includes(query));
+      if(sort==="average")list.sort((a,b)=>a.average-b.average); if(sort==="hot")list.sort((a,b)=>b.awards.length-a.awards.length);
+      document.getElementById("available-count").textContent=`${availablePlayers().length} available`;
+      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div></div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="openDraftSnapshot(${p.id})" ${allowed?'':'disabled'}>${allowed?`Draft to Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
+    }
+    function renderTeams(){
+      const active=currentSlot()?.team;
+      document.getElementById("draft-teams").innerHTML=[1,2,3,4].map(team=>{const roster=teamRoster(team);return `<div class="draft-team ${active===team&&draftState.status==='live'?'active':''}"><div class="draft-team-head"><div><h4>Team ${team}</h4><small>${captainOrder.find(c=>c.team===team)?.name||''} · Captain</small></div><div class="team-average"><strong>${averageOf(roster)}</strong><small>Projected Avg</small></div></div><div class="team-roster">${roster.map(p=>`<div class="team-player ${p.captain?'captain':''}"><span>${p.captain?'♛ ':''}${p.name}</span><b>${p.average.toFixed(1)}</b></div>`).join('')}</div></div>`}).join('');
+    }
+    function renderBoard(){
+      const maxRounds=3; let html='<div class="board-cell header">Round</div>'+[1,2,3,4].map(t=>`<div class="board-cell header">Team ${t}</div>`).join('');
+      for(let r=1;r<=maxRounds;r++){html+=`<div class="board-cell round">R${r}</div>`;for(let t=1;t<=4;t++){const pick=draftState.picks.find(p=>p.round===r&&p.team===t);const planned=draftState.order.findIndex((s,i)=>s.round===r&&s.team===t&&i>=0);html+=`<div class="board-cell ${pick?'filled':''}">${pick?`#${pick.overall}<br><b>${pick.player.name.split(' ')[0]}</b>`:(planned>=0?`Pick ${planned+1}`:'—')}</div>`;}}
+      document.getElementById("draft-board").innerHTML=html;
+      document.getElementById("draft-log-list").innerHTML=draftState.picks.length?[...draftState.picks].reverse().map(p=>`<div class="draft-log-row"><span>Pick #${p.overall} · Team ${p.team}</span><b>${p.player.name}</b></div>`).join(''):'<div class="viewer-status">No selections have been made.</div>';
+    }
+    function renderDraft(){
+      buildDraftOrder(); const slot=currentSlot(); const remaining=availablePlayers().length;
+      document.getElementById("draft-mode-label").textContent=modeName(); document.getElementById("draft-remaining").textContent=remaining;
+      document.getElementById("draft-round").textContent=slot?.round|| (draftState.status==='complete'?'Final':'—'); document.getElementById("draft-pick").textContent=slot?draftState.cursor+1:(draftState.picks.length||'—');
+      document.getElementById("draft-pick-label").textContent=draftState.status==='lobby'?'Lobby · No picks yet':draftState.status==='complete'?`${draftState.picks.length} picks complete`:`Round ${slot?.round||'—'} · Pick ${draftState.cursor+1}`;
+      const statusText={lobby:'Waiting for Admin',live:'Draft Live',paused:'Draft Paused',complete:'Teams Set'}[draftState.status]; document.getElementById("draft-hero-status").textContent=statusText;
+      const clockTeam=document.getElementById("clock-team"), kicker=document.getElementById("clock-kicker"), title=document.getElementById("clock-title"), sub=document.getElementById("clock-subtitle");
+      if(draftState.status==='live'&&slot){clockTeam.textContent=slot.team;kicker.textContent='On the clock';title.textContent=`Team ${slot.team} · ${captainOrder.find(c=>c.team===slot.team)?.name}`;sub.textContent='Only this captain or the admin can confirm the next selection.'}
+      else if(draftState.status==='paused'){clockTeam.textContent=slot?.team||'Ⅱ';kicker.textContent='Paused';title.textContent='Draft controls are temporarily locked';sub.textContent='Admin can resume, undo or move the turn.'}
+      else if(draftState.status==='complete'){clockTeam.textContent='✓';kicker.textContent='Official';title.textContent='Today’s teams are complete';sub.textContent='The draft is ready for the scoring workflow.'}
+      else{clockTeam.textContent='—';kicker.textContent='Waiting';title.textContent='Admin has not started the draft';sub.textContent='Captains and players may review the board.'}
+      document.getElementById("draft-timer").textContent=`0:${String(draftState.seconds).padStart(2,'0')}`;
+      const role=document.getElementById("draft-role").value; let viewer='You can watch every pick and inspect every player.'; if(role==='admin')viewer='<strong>Admin mode:</strong> you can make the active pick and control the draft.'; else if(Number(role))viewer=slot&&Number(role)===slot.team&&draftState.status==='live'?`<strong>Your pick:</strong> Team ${role} is on the clock.`:`Captain Team ${role} · waiting for ${slot?`Team ${slot.team}`:'the draft'}.`;document.getElementById("viewer-status").innerHTML=viewer;
+      document.getElementById("pause-draft").textContent=draftState.status==='paused'?'Resume':'Pause'; document.getElementById("draft-complete-banner").classList.toggle('show',draftState.status==='complete');
+      document.getElementById("pattern-field").style.display=draftState.mode==='custom'?'grid':'none'; document.getElementById("draft-board-caption").textContent=`${modeName()} order preview`;
+      renderDraftPlayers();renderTeams();renderBoard();
+    }
+
+    renderCaptainOrder(); renderPatternBuilder(); buildDraftOrder(); renderDraft();
+    document.getElementById("draft-mode").addEventListener("change",e=>{draftState.mode=e.target.value;document.getElementById("pattern-field").style.display=e.target.value==='custom'?'grid':'none';resetDraft();});
+    document.getElementById("first-pick").addEventListener("change",()=>{if(draftState.status==='lobby'){buildDraftOrder();renderDraft();}});
+    document.getElementById("draft-role").addEventListener("change",renderDraft);
+    document.getElementById("draft-search").addEventListener("input",renderDraftPlayers);
+    document.getElementById("draft-sort").addEventListener("change",renderDraftPlayers);
+    document.getElementById("preview-order").addEventListener("click",()=>{buildDraftOrder();renderDraft();document.getElementById("draft-board").scrollIntoView({behavior:'smooth',block:'center'});});
+    document.getElementById("start-draft").addEventListener("click",startDraft);
+    document.getElementById("pause-draft").addEventListener("click",pauseDraft);
+    document.getElementById("undo-pick").addEventListener("click",undoDraftPick);
+    document.getElementById("skip-pick").addEventListener("click",skipDraftPick);
+    document.getElementById("reset-draft").addEventListener("click",resetDraft);
+    document.getElementById("close-draft-modal").addEventListener("click",closeDraftModal);
+    document.getElementById("confirm-draft-pick").addEventListener("click",confirmDraftPick);
+    document.getElementById("draft-modal").addEventListener("click",e=>{if(e.target.id==='draft-modal')closeDraftModal();});
 
 
     const holeSelect = document.getElementById("hole-select");
