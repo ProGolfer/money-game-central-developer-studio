@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v1.2.1 Draft Central</title>
+  <title>Money Game Central — Developer Studio v1.2.2 Draft Central</title>
 
   <style>
     :root {
@@ -2928,7 +2928,7 @@
             <div>
               <div class="eyebrow">Saturday Team Selection</div>
               <h2>Draft Central</h2>
-              <p>Everyone can watch the live team draft. Player averages, recent form and monthly achievements stay visible. Only the captain whose turn is active can make the next pick. On a computer, double-click an eligible player card to draft them instantly to the team on the clock.</p>
+              <p>Everyone can watch the live team draft. Player averages, recent form and monthly achievements stay visible. Only the captain whose turn is active can make the next pick. Press the green Select button to add a player to the team on the clock. On a computer, double-clicking the player card also works.</p>
             </div>
             <div class="draft-live-pill"><small>Draft Status</small><strong id="draft-hero-status">Waiting for Admin</strong></div>
           </div>
@@ -2961,7 +2961,7 @@
                   <option value="2">Mike · Captain Team 2</option>
                   <option value="3">Ryan · Captain Team 3</option>
                   <option value="4">Chris · Captain Team 4</option>
-                  <option value="admin">League Admin</option>
+                  <option value="admin" selected>League Admin</option>
                 </select>
                 <div class="viewer-status" id="viewer-status">You can watch every pick and inspect every player. Captain controls unlock only during that captain’s turn.</div>
               </div>
@@ -3597,6 +3597,20 @@
       }
     }
 
+    function pickDraftPlayer(id){
+      const player=availablePlayers().find(p=>p.id===id);
+      if(!player) return;
+      const role=document.getElementById("draft-role")?.value||"viewer";
+      const team=draftState.mode==="manual"
+        ? (role==="admin" ? 1 : Number(role))
+        : currentSlot()?.team;
+      if(!team || !canViewerPick(team)){
+        openDraftSnapshot(id);
+        return;
+      }
+      makePick(player,team);
+    }
+
     function openDraftSnapshot(id){
       const p=todayDraftPlayers().find(x=>x.id===id); if(!p)return;
       draftState.selectedPlayer=p;
@@ -3644,7 +3658,7 @@
       let list=availablePlayers().filter(p=>p.name.toLowerCase().includes(query));
       if(sort==="average")list.sort((a,b)=>a.average-b.average); if(sort==="hot")list.sort((a,b)=>b.awards.length-a.awards.length);
       document.getElementById("available-count").textContent=`${availablePlayers().length} available`;
-      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player ${allowed?'can-pick':''}" ondblclick="draftPlayerFromCard(event,${p.id})" title="${allowed?`Double-click to draft ${p.name} to Team ${team}`:'Double-click to view player snapshot'}"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div>${allowed?`<div class="double-pick-hint">Double-click to send to Team ${team}</div>`:''}</div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="openDraftSnapshot(${p.id})" ${allowed?'':'disabled'}>${allowed?`Draft to Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
+      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player ${allowed?'can-pick':''}" ondblclick="draftPlayerFromCard(event,${p.id})" title="${allowed?`Select ${p.name} for Team ${team}`:'Double-click to view player snapshot'}"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div>${allowed?`<div class="double-pick-hint">Double-click the card or press Select for Team ${team}</div>`:''}</div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="pickDraftPlayer(${p.id})" ${allowed?'':'disabled'}>${allowed?`Select for Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
     }
     function renderTeams(){
       const active=currentSlot()?.team;
