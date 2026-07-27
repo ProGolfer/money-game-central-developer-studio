@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v1.2 Draft Central</title>
+  <title>Money Game Central — Developer Studio v1.2.1 Draft Central</title>
 
   <style>
     :root {
@@ -1996,6 +1996,9 @@
     .draft-player-list { display:grid; gap:10px; max-height:760px; overflow:auto; padding-right:3px; }
     .draft-player { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:12px; align-items:center; padding:13px; border:1px solid var(--border); border-radius:16px; background:rgba(255,255,255,.028); transition:.18s ease; }
     .draft-player:hover { transform:translateY(-1px); border-color:rgba(53,233,120,.25); }
+    .draft-player.can-pick { border-color:rgba(53,233,120,.34); cursor:pointer; }
+    .draft-player.can-pick:hover { background:rgba(53,233,120,.065); box-shadow:0 0 0 1px rgba(53,233,120,.10); }
+    .double-pick-hint { margin-top:7px; color:var(--green); font-size:10px; font-weight:850; }
     .draft-avatar { width:44px; height:44px; display:grid; place-items:center; border-radius:13px; background:linear-gradient(135deg,var(--panel-3),#071710); color:var(--green); font-weight:950; }
     .draft-player-name { font-weight:900; }
     .draft-player-meta { display:flex; flex-wrap:wrap; gap:6px; margin-top:5px; }
@@ -2925,7 +2928,7 @@
             <div>
               <div class="eyebrow">Saturday Team Selection</div>
               <h2>Draft Central</h2>
-              <p>Everyone can watch the live team draft. Player averages, recent form and monthly achievements stay visible. Only the captain whose turn is active can make the next pick.</p>
+              <p>Everyone can watch the live team draft. Player averages, recent form and monthly achievements stay visible. Only the captain whose turn is active can make the next pick. On a computer, double-click an eligible player card to draft them instantly to the team on the clock.</p>
             </div>
             <div class="draft-live-pill"><small>Draft Status</small><strong id="draft-hero-status">Waiting for Admin</strong></div>
           </div>
@@ -2973,7 +2976,7 @@
               <div class="admin-field full"><label>Captain Order</label><div id="captain-order" class="captain-order"></div></div>
               <div class="admin-field full" id="pattern-field" style="display:none"><label>Custom Round Pattern</label><div id="pattern-builder" class="pattern-builder"></div></div>
             </div>
-            <div class="draft-actions"><button id="preview-order" class="draft-btn">Preview Order</button><button id="start-draft" class="draft-btn primary">Start Draft</button><button id="pause-draft" class="draft-btn">Pause</button><button id="undo-pick" class="draft-btn">Undo Pick</button><button id="skip-pick" class="draft-btn">Skip Turn</button><button id="reset-draft" class="draft-btn danger">Reset Draft</button></div>
+            <div class="draft-actions"><button id="preview-order" class="draft-btn">Preview Order</button><button id="start-draft" class="draft-btn primary">Start Draft</button><button id="pause-draft" class="draft-btn">Pause</button><button id="undo-pick" class="draft-btn">Undo Pick</button><button id="skip-pick" class="draft-btn">Move to Next Team</button><button id="reset-draft" class="draft-btn danger">Reset Draft</button></div>
           </div>
 
           <div class="draft-main-grid">
@@ -3537,11 +3540,11 @@
       const next=index+dir;
       if(next<0||next>=captainOrder.length||draftState.status!=="lobby") return;
       [captainOrder[index],captainOrder[next]]=[captainOrder[next],captainOrder[index]];
-      captainOrder.forEach((c,i)=>c.team=i+1);
+      // Reorder only the picking sequence. Captains remain attached to their original teams.
       renderCaptainOrder(); buildDraftOrder(); renderDraft();
     }
     function renderCaptainOrder(){
-      document.getElementById("captain-order").innerHTML=captainOrder.map((c,i)=>`<div class="captain-order-row"><b>${i+1}</b><span>${c.name} · Team ${c.team}</span><button class="order-btn" onclick="moveCaptain(${i},-1)" ${i===0?'disabled':''}>↑</button><button class="order-btn" onclick="moveCaptain(${i},1)" ${i===captainOrder.length-1?'disabled':''}>↓</button></div>`).join("");
+      document.getElementById("captain-order").innerHTML=captainOrder.map((c,i)=>`<div class="captain-order-row"><b>${i+1}</b><span>Pick ${i+1}: ${c.name} · Team ${c.team}</span><button class="order-btn" onclick="moveCaptain(${i},-1)" ${i===0?'disabled':''}>↑</button><button class="order-btn" onclick="moveCaptain(${i},1)" ${i===captainOrder.length-1?'disabled':''}>↓</button></div>`).join("");
     }
     function renderPatternBuilder(){
       document.getElementById("pattern-builder").innerHTML=customPattern.map((direction,i)=>`<div class="pattern-round"><small>Round ${i+1}</small><select class="draft-select" onchange="customPattern[${i}]=this.value;buildDraftOrder();renderDraft()"><option value="down" ${direction==='down'?'selected':''}>↓ Down</option><option value="up" ${direction==='up'?'selected':''}>↑ Up</option></select></div>`).join("");
@@ -3582,6 +3585,18 @@
     function averageOf(roster){ return roster.length?(roster.reduce((a,p)=>a+p.average,0)/roster.length).toFixed(1):"—"; }
     function modeName(){ return draftState.mode==="snake"?"Snake":draftState.mode==="custom"?"Custom":"Manual"; }
     function awardTiny(a){ return `<span class="draft-mini-badge ${a.label.includes('💩')?'poop':''}">${a.label}${a.count>1?` ×${a.count}`:''}</span>`; }
+    function draftPlayerFromCard(event,id){
+      event.preventDefault();
+      const player=availablePlayers().find(p=>p.id===id);
+      if(!player) return;
+      const team=draftState.mode==="manual" ? (Number(document.getElementById("draft-role")?.value)||1) : currentSlot()?.team;
+      if(team && canViewerPick(team)){
+        makePick(player,team);
+      } else {
+        openDraftSnapshot(id);
+      }
+    }
+
     function openDraftSnapshot(id){
       const p=todayDraftPlayers().find(x=>x.id===id); if(!p)return;
       draftState.selectedPlayer=p;
@@ -3596,7 +3611,8 @@
       const team=forcedTeam || currentSlot()?.team;
       if(!team || !canViewerPick(team)) return;
       const slot=currentSlot();
-      draftState.picks.push({player,team,round:slot?.round||Math.ceil(draftState.picks.length/4)+1,overall:draftState.picks.length+1});
+      const overall=draftState.mode==="manual" ? draftState.picks.length+1 : draftState.cursor+1;
+      draftState.picks.push({player,team,round:slot?.round||Math.ceil(draftState.picks.length/4)+1,overall});
       if(draftState.mode!=="manual") draftState.cursor++;
       draftState.seconds=45;
       if(!availablePlayers().length){ draftState.status="complete"; stopDraftTimer(); }
@@ -3628,14 +3644,14 @@
       let list=availablePlayers().filter(p=>p.name.toLowerCase().includes(query));
       if(sort==="average")list.sort((a,b)=>a.average-b.average); if(sort==="hot")list.sort((a,b)=>b.awards.length-a.awards.length);
       document.getElementById("available-count").textContent=`${availablePlayers().length} available`;
-      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div></div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="openDraftSnapshot(${p.id})" ${allowed?'':'disabled'}>${allowed?`Draft to Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
+      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player ${allowed?'can-pick':''}" ondblclick="draftPlayerFromCard(event,${p.id})" title="${allowed?`Double-click to draft ${p.name} to Team ${team}`:'Double-click to view player snapshot'}"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div>${allowed?`<div class="double-pick-hint">Double-click to send to Team ${team}</div>`:''}</div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="openDraftSnapshot(${p.id})" ${allowed?'':'disabled'}>${allowed?`Draft to Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
     }
     function renderTeams(){
       const active=currentSlot()?.team;
       document.getElementById("draft-teams").innerHTML=[1,2,3,4].map(team=>{const roster=teamRoster(team);return `<div class="draft-team ${active===team&&draftState.status==='live'?'active':''}"><div class="draft-team-head"><div><h4>Team ${team}</h4><small>${captainOrder.find(c=>c.team===team)?.name||''} · Captain</small></div><div class="team-average"><strong>${averageOf(roster)}</strong><small>Projected Avg</small></div></div><div class="team-roster">${roster.map(p=>`<div class="team-player ${p.captain?'captain':''}"><span>${p.captain?'♛ ':''}${p.name}</span><b>${p.average.toFixed(1)}</b></div>`).join('')}</div></div>`}).join('');
     }
     function renderBoard(){
-      const maxRounds=3; let html='<div class="board-cell header">Round</div>'+[1,2,3,4].map(t=>`<div class="board-cell header">Team ${t}</div>`).join('');
+      const maxRounds=Math.max(1,...draftState.order.map(slot=>slot.round),...draftState.picks.map(p=>p.round)); let html='<div class="board-cell header">Round</div>'+[1,2,3,4].map(t=>`<div class="board-cell header">Team ${t}</div>`).join('');
       for(let r=1;r<=maxRounds;r++){html+=`<div class="board-cell round">R${r}</div>`;for(let t=1;t<=4;t++){const pick=draftState.picks.find(p=>p.round===r&&p.team===t);const planned=draftState.order.findIndex((s,i)=>s.round===r&&s.team===t&&i>=0);html+=`<div class="board-cell ${pick?'filled':''}">${pick?`#${pick.overall}<br><b>${pick.player.name.split(' ')[0]}</b>`:(planned>=0?`Pick ${planned+1}`:'—')}</div>`;}}
       document.getElementById("draft-board").innerHTML=html;
       document.getElementById("draft-log-list").innerHTML=draftState.picks.length?[...draftState.picks].reverse().map(p=>`<div class="draft-log-row"><span>Pick #${p.overall} · Team ${p.team}</span><b>${p.player.name}</b></div>`).join(''):'<div class="viewer-status">No selections have been made.</div>';
