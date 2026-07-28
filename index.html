@@ -1998,6 +1998,42 @@
 
 
 
+
+
+    /* v1.2.7 — Active Captain Your Turn Alert */
+    .your-turn-alert {
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:12px;
+      padding:14px 16px;
+      border:1px solid rgba(53,233,120,.36);
+      border-left:5px solid var(--green);
+      border-radius:14px;
+      background:linear-gradient(90deg,rgba(53,233,120,.18),rgba(53,233,120,.055));
+      box-shadow:0 0 0 1px rgba(53,233,120,.04),0 12px 30px rgba(0,0,0,.18);
+    }
+    .your-turn-alert.show { display:flex; animation:yourTurnPulse 2.2s ease-in-out infinite; }
+    .your-turn-copy small {
+      display:block; color:var(--green); font-size:10px; font-weight:950;
+      letter-spacing:.12em; text-transform:uppercase;
+    }
+    .your-turn-copy strong { display:block; margin-top:4px; font-size:17px; }
+    .your-turn-copy span { display:block; margin-top:3px; color:var(--muted); font-size:12px; }
+    .your-turn-pick {
+      flex:0 0 auto; padding:9px 11px; border-radius:11px; text-align:center;
+      background:var(--green); color:#03240f; font-weight:950;
+    }
+    .your-turn-pick small { display:block; font-size:8px; letter-spacing:.08em; text-transform:uppercase; }
+    .your-turn-pick strong { display:block; margin-top:2px; font-size:16px; }
+    @keyframes yourTurnPulse {
+      0%,100% { box-shadow:0 0 0 0 rgba(53,233,120,0),0 12px 30px rgba(0,0,0,.18); }
+      50% { box-shadow:0 0 0 5px rgba(53,233,120,.055),0 12px 30px rgba(0,0,0,.18); }
+    }
+    @media(max-width:560px){.your-turn-alert.show{align-items:flex-start}.your-turn-pick{min-width:66px}}
+    @media(prefers-reduced-motion:reduce){.your-turn-alert.show{animation:none}}
+
     /* v1.2 — Draft Central */
     .draft-shell { display:grid; gap:18px; }
     .draft-hero { position:relative; overflow:hidden; display:flex; justify-content:space-between; gap:22px; align-items:flex-start; padding:24px; border:1px solid rgba(244,200,90,.24); border-radius:24px; background:linear-gradient(135deg,rgba(244,200,90,.12),rgba(53,233,120,.08) 55%,rgba(12,29,22,.95)); box-shadow:var(--shadow); }
@@ -3100,6 +3136,14 @@
           <div class="draft-top-grid">
             <div class="draft-card">
               <div class="draft-card-head"><h3>Live Draft</h3><span id="draft-pick-label">Lobby · No picks yet</span></div>
+              <div id="your-turn-alert" class="your-turn-alert" role="status" aria-live="polite">
+                <div class="your-turn-copy">
+                  <small>⚡ Your Turn</small>
+                  <strong id="your-turn-title">Team 1 is on the clock</strong>
+                  <span id="your-turn-subtitle">Choose an available player to make the official pick.</span>
+                </div>
+                <div class="your-turn-pick"><small>Overall Pick</small><strong id="your-turn-pick-number">#1</strong></div>
+              </div>
               <div class="on-clock">
                 <div class="clock-team" id="clock-team">—</div>
                 <div class="clock-copy"><small id="clock-kicker">Waiting</small><strong id="clock-title">Admin has not started the draft</strong><span id="clock-subtitle">Captains and players may review the board.</span></div>
@@ -3865,6 +3909,15 @@
       else{clockTeam.textContent='—';kicker.textContent='Waiting';title.textContent='Admin has not started the draft';sub.textContent='Captains and players may review the board.'}
       document.getElementById("draft-timer").textContent=`0:${String(draftState.seconds).padStart(2,'0')}`;
       const role=document.getElementById("draft-role").value; let viewer='You can watch every pick and inspect every player.'; if(role==='admin')viewer='<strong>Admin mode:</strong> you can make the active pick and control the draft.'; else if(Number(role))viewer=slot&&Number(role)===slot.team&&draftState.status==='live'?`<strong>Your pick:</strong> Team ${role} is on the clock.`:`Captain Team ${role} · waiting for ${slot?`Team ${slot.team}`:'the draft'}.`;document.getElementById("viewer-status").innerHTML=viewer;
+      const yourTurnAlert=document.getElementById('your-turn-alert');
+      const isActiveCaptain=draftState.status==='live' && slot && Number(role)===slot.team;
+      yourTurnAlert.classList.toggle('show',isActiveCaptain);
+      if(isActiveCaptain){
+        const captainName=captainOrder.find(c=>c.team===slot.team)?.name||`Team ${slot.team} Captain`;
+        document.getElementById('your-turn-title').textContent=`${captainName}, Team ${slot.team} is on the clock`;
+        document.getElementById('your-turn-subtitle').textContent='Choose an available player to make the official pick.';
+        document.getElementById('your-turn-pick-number').textContent=`#${draftState.cursor+1}`;
+      }
       document.getElementById("pause-draft").textContent=draftState.status==='paused'?'Resume':'Pause'; document.getElementById("draft-complete-banner").classList.toggle('show',draftState.status==='complete');
       document.getElementById("pattern-field").style.display=draftState.mode==='custom'?'grid':'none'; document.getElementById("draft-board-caption").textContent=`${modeName()} order preview`;
       const publishBtn=document.getElementById("submit-publish-teams");
