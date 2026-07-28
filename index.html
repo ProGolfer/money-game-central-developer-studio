@@ -3739,6 +3739,8 @@
     let captainOrder = draftCaptainsBase.map(c=>({...c}));
     let customPattern = ["down","down","up"];
     let draftState = { status:"lobby", mode:"snake", order:[], cursor:0, picks:[], seconds:45, timer:null, selectedPlayer:null, published:false, publishedAt:null };
+    let draftAnimationLocked = false;
+    let newestDraftPick = null;
 
     const todayDraftPlayers = () => demoPlayers.filter(p=>p.today && !draftCaptainsBase.some(c=>c.playerId===p.id)).map((p,i)=>({...p,recent:[p.average-1.1+(i%3),p.average+.7-(i%2),p.average-.4+(i%2)].map(x=>Number(x.toFixed(1)))}));
 
@@ -3786,7 +3788,7 @@
     }
     function teamRoster(team){
       const captain=captainOrder.find(c=>c.team===team);
-      return [{name:captain?.name||`Captain ${team}`,average:demoPlayers.find(p=>p.id===captain?.playerId)?.average||0,captain:true},...draftState.picks.filter(p=>p.team===team).map(p=>({name:p.player.name,average:p.player.average,captain:false}))];
+      return [{id:captain?.playerId||`captain-${team}`,name:captain?.name||`Captain ${team}`,average:demoPlayers.find(p=>p.id===captain?.playerId)?.average||0,captain:true},...draftState.picks.filter(p=>p.team===team).map(p=>({id:p.player.id,name:p.player.name,average:p.player.average,captain:false}))];
     }
     function averageOf(roster){ return roster.length?(roster.reduce((a,p)=>a+p.average,0)/roster.length).toFixed(1):"—"; }
     function modeName(){ return draftState.mode==="snake"?"Snake":draftState.mode==="custom"?"Custom":"Manual"; }
@@ -3827,16 +3829,47 @@
     }
     function closeDraftModal(){ document.getElementById("draft-modal").classList.remove("show"); draftState.selectedPlayer=null; }
     function makePick(player,forcedTeam){
-      if(!player)return;
+      if(!player || draftAnimationLocked)return;
       const team=forcedTeam || currentSlot()?.team;
       if(!team || !canViewerPick(team)) return;
-      const slot=currentSlot();
-      const overall=draftState.mode==="manual" ? draftState.picks.length+1 : draftState.cursor+1;
-      draftState.picks.push({player,team,round:slot?.round||Math.ceil(draftState.picks.length/4)+1,overall});
-      if(draftState.mode!=="manual") draftState.cursor++;
-      draftState.seconds=45;
-      if(!availablePlayers().length){ draftState.status="complete"; stopDraftTimer(); }
-      closeDraftModal(); renderDraft();
+
+      draftAnimationLocked=true;
+      const sourceCard=document.querySelector(`.draft-player[data-player-id="${player.id}"]`);
+      const pickButton=sourceCard?.querySelector('.pick');
+      if(sourceCard) sourceCard.classList.add('is-drafting');
+      if(pickButton){
+        pickButton.disabled=true;
+        pickButton.classList.add('is-drafting-button');
+        pickButton.textContent='Drafting…';
+      }
+
+      window.setTimeout(()=>{
+        if(sourceCard) sourceCard.classList.add('is-leaving');
+
+        window.setTimeout(()=>{
+          const slot=currentSlot();
+          const overall=draftState.mode==="manual" ? draftState.picks.length+1 : draftState.cursor+1;
+          draftState.picks.push({player,team,round:slot?.round||Math.ceil(draftState.picks.length/4)+1,overall});
+          newestDraftPick={playerId:player.id,team};
+          if(draftState.mode!=="manual") draftState.cursor++;
+          draftState.seconds=45;
+          if(!availablePlayers().length){ draftState.status="complete"; stopDraftTimer(); }
+          closeDraftModal();
+          draftAnimationLocked=false;
+          renderDraft();
+
+          requestAnimationFrame(()=>{
+            const rosterRow=document.querySelector(`.team-player[data-team="${team}"][data-player-id="${player.id}"]`);
+            rosterRow?.classList.add('is-new-draft-pick');
+            const alert=document.getElementById('your-turn-alert');
+            if(alert?.classList.contains('show')){
+              alert.classList.remove('turn-advanced');
+              void alert.offsetWidth;
+              alert.classList.add('turn-advanced');
+            }
+          });
+        },220);
+      },420);
     }
     function confirmDraftPick(){
       const role=document.getElementById("draft-role").value;
@@ -3864,11 +3897,11 @@
       let list=availablePlayers().filter(p=>p.name.toLowerCase().includes(query));
       if(sort==="average")list.sort((a,b)=>a.average-b.average); if(sort==="hot")list.sort((a,b)=>b.awards.length-a.awards.length);
       document.getElementById("available-count").textContent=`${availablePlayers().length} available`;
-      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player ${allowed?'can-pick':''}" ondblclick="draftPlayerFromCard(event,${p.id})" title="${allowed?`Select ${p.name} for Team ${team}`:'Double-click to view player snapshot'}"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div>${allowed?`<div class="double-pick-hint">Double-click the card or press Select for Team ${team}</div>`:''}</div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="pickDraftPlayer(${p.id})" ${allowed?'':'disabled'}>${allowed?`Select for Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
+      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player ${allowed?'can-pick':''}" data-player-id="${p.id}" ondblclick="draftPlayerFromCard(event,${p.id})" title="${allowed?`Select ${p.name} for Team ${team}`:'Double-click to view player snapshot'}"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div>${allowed?`<div class="double-pick-hint">Double-click the card or press Select for Team ${team}</div>`:''}</div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="pickDraftPlayer(${p.id})" ${allowed?'':'disabled'}>${allowed?`Select for Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
     }
     function renderTeams(){
       const active=currentSlot()?.team;
-      document.getElementById("draft-teams").innerHTML=[1,2,3,4].map(team=>{const roster=teamRoster(team);return `<div class="draft-team ${active===team&&draftState.status==='live'?'active':''}"><div class="draft-team-head"><div><h4>Team ${team}</h4><small>${captainOrder.find(c=>c.team===team)?.name||''} · Captain</small></div><div class="team-average"><strong>${averageOf(roster)}</strong><small>Projected Avg</small></div></div><div class="team-roster">${roster.map(p=>`<div class="team-player ${p.captain?'captain':''}"><span>${p.captain?'♛ ':''}${p.name}</span><b>${p.average.toFixed(1)}</b></div>`).join('')}</div></div>`}).join('');
+      document.getElementById("draft-teams").innerHTML=[1,2,3,4].map(team=>{const roster=teamRoster(team);return `<div class="draft-team ${active===team&&draftState.status==='live'?'active':''}"><div class="draft-team-head"><div><h4>Team ${team}</h4><small>${captainOrder.find(c=>c.team===team)?.name||''} · Captain</small></div><div class="team-average"><strong>${averageOf(roster)}</strong><small>Projected Avg</small></div></div><div class="team-roster">${roster.map(p=>`<div class="team-player ${p.captain?'captain':''}" data-team="${team}" data-player-id="${p.id||''}"><span>${p.captain?'♛ ':''}${p.name}</span><b>${p.average.toFixed(1)}</b></div>`).join('')}</div></div>`}).join('');
     }
     function renderBoard(){
       const maxRounds=Math.max(1,...draftState.order.map(slot=>slot.round),...draftState.picks.map(p=>p.round)); let html='<div class="board-cell header">Round</div>'+[1,2,3,4].map(t=>`<div class="board-cell header">Team ${t}</div>`).join('');
