@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1.0"
   />
 
-  <title>Money Game Central — Developer Studio v1.2.4</title>
+  <title>Money Game Central — Developer Studio v1.2.6</title>
 
   <style>
     :root {
@@ -1466,6 +1466,62 @@
 
 
 
+
+
+    /* =========================================================
+       v1.2.6 — Dashboard Draft Status Strip
+       Connects Dashboard, Draft Central, My Team and scoring.
+       ========================================================= */
+    .draft-status-strip {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin:0 0 9px;
+      padding:10px 12px;
+      border:1px solid rgba(255,255,255,.08);
+      border-left:4px solid var(--draft-strip-accent, var(--green));
+      border-radius:8px;
+      background:#0d2017;
+    }
+    .draft-status-main { min-width:0; }
+    .draft-status-label {
+      color:var(--draft-strip-accent, var(--green));
+      font-size:7px;
+      font-weight:950;
+      letter-spacing:.13em;
+      text-transform:uppercase;
+    }
+    .draft-status-message {
+      margin-top:3px;
+      color:#edf8f1;
+      font-size:11px;
+      font-weight:850;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .draft-status-action {
+      flex:0 0 auto;
+      padding:7px 9px;
+      border:1px solid color-mix(in srgb, var(--draft-strip-accent, var(--green)) 35%, transparent);
+      border-radius:7px;
+      background:color-mix(in srgb, var(--draft-strip-accent, var(--green)) 11%, transparent);
+      color:var(--draft-strip-accent, var(--green));
+      font-size:8px;
+      font-weight:950;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+    .draft-status-strip.live { --draft-strip-accent:var(--gold); }
+    .draft-status-strip.published { --draft-strip-accent:var(--green); }
+    .draft-status-strip.paused { --draft-strip-accent:#58a6ff; }
+    @media(max-width:380px){
+      .draft-status-strip{align-items:flex-start}
+      .draft-status-message{white-space:normal}
+    }
+
+
     /* v0.7 — My Team Broadcast Scoreboard */
     .team-broadcast-hero {
       position: relative;
@@ -2660,6 +2716,7 @@
                 </div>
               </div>
               <div id="dashboard-pulse-wrap" class="wow-unfold wow-delay-1"></div>
+              <div id="dashboard-draft-status-wrap" class="wow-unfold wow-delay-1"></div>
               <div id="dashboard-announcement-wrap" class="wow-unfold wow-delay-2"></div>
               <div id="dashboard-journey-wrap" class="wow-unfold wow-delay-3"></div>
               <div class="wow-grid wow-unfold wow-delay-4">
@@ -3637,7 +3694,7 @@
     ];
     let captainOrder = draftCaptainsBase.map(c=>({...c}));
     let customPattern = ["down","down","up"];
-    let draftState = { status:"lobby", mode:"snake", order:[], cursor:0, picks:[], seconds:45, timer:null, selectedPlayer:null, published:false };
+    let draftState = { status:"lobby", mode:"snake", order:[], cursor:0, picks:[], seconds:45, timer:null, selectedPlayer:null, published:false, publishedAt:null };
 
     const todayDraftPlayers = () => demoPlayers.filter(p=>p.today && !draftCaptainsBase.some(c=>c.playerId===p.id)).map((p,i)=>({...p,recent:[p.average-1.1+(i%3),p.average+.7-(i%2),p.average-.4+(i%2)].map(x=>Number(x.toFixed(1)))}));
 
@@ -3756,7 +3813,7 @@
     function startDraftTimer(){ stopDraftTimer(); if(draftState.mode==="manual")return; draftState.timer=setInterval(()=>{if(draftState.status!=="live")return;draftState.seconds=Math.max(0,draftState.seconds-1);document.getElementById("draft-timer").textContent=`0:${String(draftState.seconds).padStart(2,'0')}`;if(draftState.seconds===0){stopDraftTimer();draftState.status="paused";renderDraft();}},1000); }
     function undoDraftPick(){ const last=draftState.picks.pop(); if(!last)return; if(draftState.mode!=="manual")draftState.cursor=Math.max(0,draftState.cursor-1);draftState.status="paused";stopDraftTimer();renderDraft(); }
     function skipDraftPick(){ if(draftState.mode==="manual"||!currentSlot())return;draftState.cursor++; if(draftState.cursor>=draftState.order.length)draftState.status="complete";renderDraft(); }
-    function resetDraft(){ stopDraftTimer();draftState={status:"lobby",mode:document.getElementById("draft-mode").value,order:[],cursor:0,picks:[],seconds:45,timer:null,selectedPlayer:null,published:false};buildDraftOrder();renderDraft(); }
+    function resetDraft(){ stopDraftTimer();draftState={status:"lobby",mode:document.getElementById("draft-mode").value,order:[],cursor:0,picks:[],seconds:45,timer:null,selectedPlayer:null,published:false,publishedAt:null};buildDraftOrder();renderDraft(); }
 
     function renderDraftPlayers(){
       const query=(document.getElementById("draft-search")?.value||"").toLowerCase(); const sort=document.getElementById("draft-sort")?.value||"default";
@@ -3790,6 +3847,7 @@
       if(document.getElementById("draft-role").value!=="admin"){alert("Only the league admin can publish the official teams.");return;}
       if(!confirm("Publish today’s teams for the entire league? Captains will still be the only players allowed to keep the official live score."))return;
       draftState.published=true;
+      draftState.publishedAt=new Date();
       renderDraft();
       document.getElementById("official-teams-panel").scrollIntoView({behavior:"smooth",block:"center"});
     }
@@ -3819,7 +3877,7 @@
       publishStatus.textContent=draftState.published?'✓ Official teams are visible to everyone. Only verified captains can enter and submit their team’s live scorecard.':(isAdmin?'Not published yet. Review the teams, then make them official for everyone.':'Waiting for the league admin to publish today’s official teams.');
       document.getElementById('publish-banner-title').textContent=draftState.published?'Today’s teams are officially published.':'Today’s teams are ready to submit.';
       document.getElementById('publish-banner-copy').textContent=draftState.published?'The league can now view the official team assignments.':'Review the teams, then publish them for the entire league.';
-      renderDraftPlayers();renderTeams();renderBoard();renderOfficialTeams();
+      renderDraftPlayers();renderTeams();renderBoard();renderOfficialTeams();renderDashboardDraftStatus();
     }
 
     renderCaptainOrder(); renderPatternBuilder(); buildDraftOrder(); renderDraft();
@@ -4002,6 +4060,47 @@
       }
     };
 
+
+
+    function draftStatusStripMarkup(){
+      const slot=currentSlot();
+      const pickNumber=draftState.cursor+1;
+      let cssClass="waiting";
+      let label="Draft Status";
+      let message="Registration Closed · Draft starts soon";
+      let action="Watch Draft";
+      let screen="draft-central";
+
+      if(draftState.published){
+        cssClass="published";
+        const publishedTime=draftState.publishedAt
+          ? draftState.publishedAt.toLocaleTimeString([], {hour:"numeric", minute:"2-digit"})
+          : "Official";
+        message=`Teams Published · ${publishedTime}`;
+        action="View Teams";
+        screen="my-team";
+      } else if(draftState.status==="live" && slot){
+        cssClass="live";
+        message=`Team ${slot.team} is on the clock · Pick ${pickNumber}`;
+        action="Watch Live";
+      } else if(draftState.status==="paused"){
+        cssClass="paused";
+        message=`Draft Paused · Team ${slot?.team || "—"} has the next pick`;
+        action="View Draft";
+      } else if(draftState.status==="complete"){
+        cssClass="live";
+        message="Draft Complete · Waiting for teams to be published";
+        action="Review Teams";
+      }
+
+      return `<div class="draft-status-strip ${cssClass}"><div class="draft-status-main"><div class="draft-status-label">${label}</div><div class="draft-status-message">${message}</div></div><button class="draft-status-action" type="button" onclick="openScreen('${screen}')">${action} →</button></div>`;
+    }
+
+    function renderDashboardDraftStatus(){
+      const wrap=document.getElementById("dashboard-draft-status-wrap");
+      if(wrap) wrap.innerHTML=draftStatusStripMarkup();
+    }
+
     function pulseMarkup(state){ return `<div class="pulse-ribbon ${state.pulseClass}"><div class="pulse-ribbon-inner"><span class="pulse-dot"></span><div><div class="pulse-ribbon-label">Saturday Pulse · ${state.pulseLabel}</div><div class="pulse-ribbon-message">${state.pulseMessage}</div></div></div></div>`; }
     function announcementMarkup(state){ return `<div class="bulletin"><div class="bulletin-kicker">📢 Dashboard Announcement</div><h3>${state.announcementTitle}</h3><p class="bulletin-lead">${state.announcementLead}</p><div class="bulletin-list">${state.announcementItems.map(x=>`<div class="bulletin-item"><span>${x}</span></div>`).join("")}</div><div class="bulletin-action">View full announcement →</div></div>`; }
     function journeyMarkup(index){ const labels=["Registered","Teams","Playing","Recap"], icons=["✓","👥","🏌","🏆"]; return `<div class="journey" style="--journey-progress:${index*33.33}%"><div class="journey-head"><h3>Saturday Journey</h3><span>${labels[index]}</span></div><div class="journey-track"><div class="journey-line"><div class="journey-fill"></div></div>${labels.map((l,i)=>`<div class="journey-step ${i<index?'done':i===index?'current':''}"><div class="journey-node">${i<index?'✓':icons[i]}</div>${l}</div>`).join("")}</div></div>`; }
@@ -4030,6 +4129,7 @@
       document.getElementById("dashboard-countdown-label").textContent = state.countdownLabel;
       document.getElementById("dashboard-countdown-value").textContent = state.countdownValue;
       document.getElementById("dashboard-pulse-wrap").innerHTML = pulseMarkup(state);
+      renderDashboardDraftStatus();
       document.getElementById("dashboard-announcement-wrap").innerHTML = announcementMarkup(state);
       document.getElementById("dashboard-journey-wrap").innerHTML = journeyMarkup(state.journey);
       document.getElementById("dashboard-primary-content").innerHTML = state.primary;
