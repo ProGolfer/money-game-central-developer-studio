@@ -20,6 +20,7 @@
       --text: #f4fff7;
       --muted: #8da99a;
       --green: #35e978;
+      --green-light: #35e978;
       --green-dark: #159447;
       --gold: #f4c85a;
       --danger: #ff6868;
@@ -2265,6 +2266,350 @@
       .award-key span{font-size:10px}
     }
 
+  
+
+    /* =========================================================
+       v1.2.8 — FULL POLISH PASS
+       Broadcast Classic preserved. No draft animation added.
+       Consistency, readability, mobile touch and accessibility.
+       ========================================================= */
+
+    html { scroll-behavior: auto; }
+
+    body {
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    select,
+    input,
+    textarea {
+      font-family: inherit;
+    }
+
+    button,
+    [role="button"] {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    button:focus-visible,
+    select:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 3px solid rgba(53, 233, 120, 0.34);
+      outline-offset: 2px;
+    }
+
+    button:disabled,
+    select:disabled,
+    input:disabled {
+      cursor: not-allowed;
+      opacity: 0.52;
+    }
+
+    .studio-sidebar {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(53,233,120,.25) transparent;
+    }
+
+    .brand h1,
+    .studio-topbar h2,
+    .app-header h1,
+    .studio-card h2,
+    .studio-card h3,
+    .app-card h2,
+    .app-card h3 {
+      letter-spacing: -0.015em;
+    }
+
+    .nav-button {
+      min-height: 46px;
+      line-height: 1.25;
+    }
+
+    .nav-button.active {
+      box-shadow: inset 3px 0 0 var(--green);
+    }
+
+    .studio-topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 40;
+      box-shadow: 0 12px 32px rgba(0,0,0,.20);
+    }
+
+    .status-pill,
+    .live-badge,
+    .team-badge,
+    .submitted-pill,
+    .my-team-tag,
+    .draft-mini-badge,
+    .monthly-award,
+    .profile-badge {
+      line-height: 1.2;
+    }
+
+    .primary-button,
+    .secondary-button,
+    .launch-button,
+    .full-app-button,
+    .dashboard-main-action,
+    .tiny-btn,
+    .order-btn {
+      min-height: 42px;
+    }
+
+    .primary-button,
+    .launch-button,
+    .full-app-button,
+    .dashboard-main-action {
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,.18);
+    }
+
+    .secondary-button,
+    .secondary-team-action,
+    .tiny-btn,
+    .order-btn {
+      border-color: rgba(255,255,255,.12);
+    }
+
+    .studio-card,
+    .app-card,
+    .bulletin,
+    .premium-money,
+    .team-broadcast-hero,
+    .broadcast-scoreboard,
+    .live-standings-card,
+    .roster-card,
+    .money-snapshot {
+      isolation: isolate;
+    }
+
+    .app-card p,
+    .studio-card p,
+    .captain-line,
+    .player-status,
+    .privacy-note,
+    .viewer-status {
+      line-height: 1.5;
+    }
+
+    .phone {
+      width: min(100%, 430px);
+      min-height: 720px;
+    }
+
+    .phone-content,
+    .wow-content {
+      overflow-wrap: anywhere;
+    }
+
+    .app-header {
+      min-height: 72px;
+      border-bottom: 1px solid rgba(255,255,255,.045);
+    }
+
+    .menu-button {
+      flex: 0 0 auto;
+      min-width: 42px;
+    }
+
+    .wow-hero h2,
+    .team-number,
+    .recap-hero h2,
+    .profile-name {
+      text-wrap: balance;
+    }
+
+    .pulse-ribbon-message,
+    .bulletin-lead,
+    .roster-copy,
+    .privacy-note {
+      text-wrap: pretty;
+    }
+
+    .score-grid,
+    .running-totals,
+    .money-lines,
+    .money-stats,
+    .winner-strip {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .score-cell strong,
+    .total-box strong,
+    .money-line strong,
+    .money-stat strong,
+    .standings-score,
+    .player-average strong,
+    .draft-player-score strong {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .score-controls button {
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    .score-player,
+    .team-player,
+    .standing-row,
+    .roster-player,
+    .standings-line,
+    .player-row,
+    .draft-player {
+      min-width: 0;
+    }
+
+    .player-name,
+    .draft-player-name,
+    .player-name-button,
+    .standings-team span,
+    .payout-player strong {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .empty-note,
+    .viewer-status {
+      border: 1px dashed rgba(255,255,255,.13);
+      background: rgba(255,255,255,.025);
+      color: #9db5a7;
+    }
+
+    input,
+    select,
+    textarea,
+    .draft-select {
+      min-height: 42px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      background: #07150f;
+      color: var(--text);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #718d7e;
+      opacity: 1;
+    }
+
+    .draft-player {
+      gap: 12px;
+      border-color: rgba(255,255,255,.085);
+    }
+
+    .draft-player.can-pick {
+      border-color: rgba(53,233,120,.24);
+      background: linear-gradient(90deg, rgba(53,233,120,.07), rgba(255,255,255,.02));
+    }
+
+    .draft-player-buttons {
+      gap: 7px;
+    }
+
+    .tiny-btn {
+      padding: 9px 11px;
+      white-space: nowrap;
+    }
+
+    #your-turn-alert {
+      border-left-width: 4px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+    }
+
+    .team-actions {
+      align-items: stretch;
+    }
+
+    .team-actions .full-app-button {
+      min-height: 46px;
+    }
+
+    .recap-trophy,
+    .money-crown,
+    .place-icon,
+    .trophy-icon {
+      font-family: "Segoe UI Emoji", "Apple Color Emoji", sans-serif;
+    }
+
+    .trophy,
+    .monthly-award,
+    .draft-mini-badge,
+    .profile-badge {
+      border-color: rgba(255,255,255,.10);
+    }
+
+    .recap-pot,
+    .money-snapshot,
+    .premium-money,
+    .winner-block {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .privacy-note {
+      color: #9fb8aa;
+    }
+
+    @media (max-width: 950px) {
+      .studio-topbar {
+        top: 0;
+        border-radius: 0 0 16px 16px;
+      }
+
+      .studio-sidebar {
+        padding-bottom: 14px;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .studio-main { padding: 10px; }
+      .studio-topbar { padding: 13px 14px; }
+      .topbar-actions { width: 100%; justify-content: space-between; }
+      .launch-button { flex: 1; }
+      .phone { border-width: 6px; border-radius: 32px; }
+      .phone-notch { height: 20px; }
+      .app-header { padding: 14px 15px 10px; }
+      .phone-content { padding-left: 13px; padding-right: 13px; }
+      .wow-content { padding-left: 13px; padding-right: 13px; }
+      .wow-hero { margin-left: -13px; margin-right: -13px; }
+      .team-actions { grid-template-columns: 1fr; }
+      .score-grid { grid-template-columns: repeat(2, 1fr); }
+      .score-cell:nth-child(2) { border-right: 0; }
+      .score-cell:nth-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,.07); }
+      .money-lines { grid-template-columns: 1fr; }
+      .money-line { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.07); }
+      .money-line:last-child { border-bottom: 0; }
+      .draft-player { grid-template-columns: auto minmax(0,1fr); }
+      .draft-player-score { grid-column: 2; text-align: left; }
+      .draft-player-buttons { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; }
+      .draft-player-buttons .tiny-btn { width: 100%; }
+    }
+
+    @media (max-width: 420px) {
+      .topbar-actions { flex-direction: column; align-items: stretch; }
+      .status-pill { text-align: center; }
+      .wow-grid { grid-template-columns: 1fr; }
+      .living-weather { min-height: 105px; }
+      .running-totals { gap: 6px; }
+      .total-box { padding-left: 3px; padding-right: 3px; }
+      .winner-strip { grid-template-columns: 1fr; }
+      .score-controls { gap: 7px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -2276,7 +2621,7 @@
 
         <h1>Money Game Central</h1>
 
-        <p>v1.2.4 • Draft Central</p>
+        <p>v1.2.8 • Full Polish</p>
       </div>
 
       <div class="nav-section">
@@ -3739,8 +4084,6 @@
     let captainOrder = draftCaptainsBase.map(c=>({...c}));
     let customPattern = ["down","down","up"];
     let draftState = { status:"lobby", mode:"snake", order:[], cursor:0, picks:[], seconds:45, timer:null, selectedPlayer:null, published:false, publishedAt:null };
-    let draftAnimationLocked = false;
-    let newestDraftPick = null;
 
     const todayDraftPlayers = () => demoPlayers.filter(p=>p.today && !draftCaptainsBase.some(c=>c.playerId===p.id)).map((p,i)=>({...p,recent:[p.average-1.1+(i%3),p.average+.7-(i%2),p.average-.4+(i%2)].map(x=>Number(x.toFixed(1)))}));
 
@@ -3788,7 +4131,7 @@
     }
     function teamRoster(team){
       const captain=captainOrder.find(c=>c.team===team);
-      return [{id:captain?.playerId||`captain-${team}`,name:captain?.name||`Captain ${team}`,average:demoPlayers.find(p=>p.id===captain?.playerId)?.average||0,captain:true},...draftState.picks.filter(p=>p.team===team).map(p=>({id:p.player.id,name:p.player.name,average:p.player.average,captain:false}))];
+      return [{name:captain?.name||`Captain ${team}`,average:demoPlayers.find(p=>p.id===captain?.playerId)?.average||0,captain:true},...draftState.picks.filter(p=>p.team===team).map(p=>({name:p.player.name,average:p.player.average,captain:false}))];
     }
     function averageOf(roster){ return roster.length?(roster.reduce((a,p)=>a+p.average,0)/roster.length).toFixed(1):"—"; }
     function modeName(){ return draftState.mode==="snake"?"Snake":draftState.mode==="custom"?"Custom":"Manual"; }
@@ -3829,47 +4172,16 @@
     }
     function closeDraftModal(){ document.getElementById("draft-modal").classList.remove("show"); draftState.selectedPlayer=null; }
     function makePick(player,forcedTeam){
-      if(!player || draftAnimationLocked)return;
+      if(!player)return;
       const team=forcedTeam || currentSlot()?.team;
       if(!team || !canViewerPick(team)) return;
-
-      draftAnimationLocked=true;
-      const sourceCard=document.querySelector(`.draft-player[data-player-id="${player.id}"]`);
-      const pickButton=sourceCard?.querySelector('.pick');
-      if(sourceCard) sourceCard.classList.add('is-drafting');
-      if(pickButton){
-        pickButton.disabled=true;
-        pickButton.classList.add('is-drafting-button');
-        pickButton.textContent='Drafting…';
-      }
-
-      window.setTimeout(()=>{
-        if(sourceCard) sourceCard.classList.add('is-leaving');
-
-        window.setTimeout(()=>{
-          const slot=currentSlot();
-          const overall=draftState.mode==="manual" ? draftState.picks.length+1 : draftState.cursor+1;
-          draftState.picks.push({player,team,round:slot?.round||Math.ceil(draftState.picks.length/4)+1,overall});
-          newestDraftPick={playerId:player.id,team};
-          if(draftState.mode!=="manual") draftState.cursor++;
-          draftState.seconds=45;
-          if(!availablePlayers().length){ draftState.status="complete"; stopDraftTimer(); }
-          closeDraftModal();
-          draftAnimationLocked=false;
-          renderDraft();
-
-          requestAnimationFrame(()=>{
-            const rosterRow=document.querySelector(`.team-player[data-team="${team}"][data-player-id="${player.id}"]`);
-            rosterRow?.classList.add('is-new-draft-pick');
-            const alert=document.getElementById('your-turn-alert');
-            if(alert?.classList.contains('show')){
-              alert.classList.remove('turn-advanced');
-              void alert.offsetWidth;
-              alert.classList.add('turn-advanced');
-            }
-          });
-        },220);
-      },420);
+      const slot=currentSlot();
+      const overall=draftState.mode==="manual" ? draftState.picks.length+1 : draftState.cursor+1;
+      draftState.picks.push({player,team,round:slot?.round||Math.ceil(draftState.picks.length/4)+1,overall});
+      if(draftState.mode!=="manual") draftState.cursor++;
+      draftState.seconds=45;
+      if(!availablePlayers().length){ draftState.status="complete"; stopDraftTimer(); }
+      closeDraftModal(); renderDraft();
     }
     function confirmDraftPick(){
       const role=document.getElementById("draft-role").value;
@@ -3897,11 +4209,11 @@
       let list=availablePlayers().filter(p=>p.name.toLowerCase().includes(query));
       if(sort==="average")list.sort((a,b)=>a.average-b.average); if(sort==="hot")list.sort((a,b)=>b.awards.length-a.awards.length);
       document.getElementById("available-count").textContent=`${availablePlayers().length} available`;
-      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player ${allowed?'can-pick':''}" data-player-id="${p.id}" ondblclick="draftPlayerFromCard(event,${p.id})" title="${allowed?`Select ${p.name} for Team ${team}`:'Double-click to view player snapshot'}"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div>${allowed?`<div class="double-pick-hint">Double-click the card or press Select for Team ${team}</div>`:''}</div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="pickDraftPlayer(${p.id})" ${allowed?'':'disabled'}>${allowed?`Select for Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
+      document.getElementById("draft-player-list").innerHTML=list.length?list.map(p=>{const team=draftState.mode==="manual"?(Number(document.getElementById("draft-role").value)||1):currentSlot()?.team;const allowed=team&&canViewerPick(team);return `<div class="draft-player ${allowed?'can-pick':''}" ondblclick="draftPlayerFromCard(event,${p.id})" title="${allowed?`Select ${p.name} for Team ${team}`:'Double-click to view player snapshot'}"><div class="draft-avatar">${p.initials}</div><div><div class="draft-player-name">${p.name}</div><div class="draft-player-meta">${p.awards.slice(0,2).map(awardTiny).join('')||'<span class="draft-mini-badge">Average tracked</span>'}</div>${allowed?`<div class="double-pick-hint">Double-click the card or press Select for Team ${team}</div>`:''}</div><div class="draft-player-score"><strong>${p.average.toFixed(1)}</strong><small>Career Avg</small></div><div class="draft-player-buttons"><button class="tiny-btn" onclick="openDraftSnapshot(${p.id})">Snapshot</button><button class="tiny-btn pick" onclick="pickDraftPlayer(${p.id})" ${allowed?'':'disabled'}>${allowed?`Select for Team ${team}`:'Waiting...'}</button></div></div>`}).join(''):'<div class="viewer-status">No available players match this view.</div>';
     }
     function renderTeams(){
       const active=currentSlot()?.team;
-      document.getElementById("draft-teams").innerHTML=[1,2,3,4].map(team=>{const roster=teamRoster(team);return `<div class="draft-team ${active===team&&draftState.status==='live'?'active':''}"><div class="draft-team-head"><div><h4>Team ${team}</h4><small>${captainOrder.find(c=>c.team===team)?.name||''} · Captain</small></div><div class="team-average"><strong>${averageOf(roster)}</strong><small>Projected Avg</small></div></div><div class="team-roster">${roster.map(p=>`<div class="team-player ${p.captain?'captain':''}" data-team="${team}" data-player-id="${p.id||''}"><span>${p.captain?'♛ ':''}${p.name}</span><b>${p.average.toFixed(1)}</b></div>`).join('')}</div></div>`}).join('');
+      document.getElementById("draft-teams").innerHTML=[1,2,3,4].map(team=>{const roster=teamRoster(team);return `<div class="draft-team ${active===team&&draftState.status==='live'?'active':''}"><div class="draft-team-head"><div><h4>Team ${team}</h4><small>${captainOrder.find(c=>c.team===team)?.name||''} · Captain</small></div><div class="team-average"><strong>${averageOf(roster)}</strong><small>Projected Avg</small></div></div><div class="team-roster">${roster.map(p=>`<div class="team-player ${p.captain?'captain':''}"><span>${p.captain?'♛ ':''}${p.name}</span><b>${p.average.toFixed(1)}</b></div>`).join('')}</div></div>`}).join('');
     }
     function renderBoard(){
       const maxRounds=Math.max(1,...draftState.order.map(slot=>slot.round),...draftState.picks.map(p=>p.round)); let html='<div class="board-cell header">Round</div>'+[1,2,3,4].map(t=>`<div class="board-cell header">Team ${t}</div>`).join('');
@@ -4251,5 +4563,6 @@
 
     updateHolePreview();
   </script>
+  <!-- v1.2.8 Full Polish: presentation refinements only; core demo logic unchanged. -->
 </body>
 </html>
